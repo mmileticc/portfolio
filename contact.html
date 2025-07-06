@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact - Game Developer, Programer i Kreativac">
+    <title>Contact - Miletic Portfolio</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/contact.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="index.html">Portfolio</a>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="projects.html">Projects</a>
+            <a href="contact.html" class="active">Contact</a>
+            <button class="theme-toggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+        <button class="nav-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Contact Header -->
+    <section class="page-header">
+        <h1>Contact Me</h1>
+        <p>Get in touch for collaborations or questions</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>Let's Connect</h2>
+                <p>Feel free to reach out through any of these channels. I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.</p>
+                
+                <div class="contact-methods">
+                    <a href="mailto:milinko.miletic03@gmail.com" class="contact-method">
+                        <i class="fas fa-envelope"></i>
+                        <div class="contact-details">
+                            <h3>Email</h3>
+                            <p>milinko.miletic03@gmail.com</p>
+                        </div>
+                    </a>
+                    <a href="https://www.linkedin.com/in/milinko-miletic" target="_blank" class="contact-method">
+                        <i class="fab fa-linkedin"></i>
+                        <div class="contact-details">
+                            <h3>LinkedIn</h3>
+                            <p>Connect with me on LinkedIn</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="contact-form-container">
+                <h2>Send me an email</h2>
+                <p>Have a question or want to work together? Send me a message!</p>
+                <form id="contact-form" onsubmit="return false;">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="Your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required placeholder="Message subject">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required placeholder="Your message"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i>
+                        Send Message
+                    </button>
+                    <div id="form-status"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Miletic. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://github.com/mmileticc" target="_blank" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/milinko-miletic" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Core modules -->
+    <script type="module" src="js/core/theme.js"></script>
+    <script type="module" src="js/core/navigation.js"></script>
+    <script type="module" src="js/core/animations.js"></script>
+    
+    <!-- EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="js/core/contact.js"></script>
+</body>
+</html> 

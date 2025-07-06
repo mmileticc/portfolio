@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Projects - Game Developer, Programer i Kreativac">
+    <title>Projects - Miletic Portfolio</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/projects.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="index.html">
+                <i class="fas fa-code"></i>
+                <span class="brand-text">Miletic<span class="accent">.dev</span></span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="projects.html" class="active">Projects</a>
+            <a href="contact.html">Contact</a>
+            <button class="theme-toggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+        <button class="nav-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Projects Header -->
+    <section class="page-header">
+        <h1>My Projects</h1>
+        <p>Explore my work across different domains</p>
+    </section>
+
+    <!-- Category Filters -->
+    <section class="category-filters-section">
+        <div class="category-filters">
+            <button class="filter-btn active" data-category="all">All</button>
+            <button class="filter-btn" data-category="academic">Academic</button>
+            <button class="filter-btn" data-category="mobile">Mobile Apps</button>
+            <button class="filter-btn" data-category="web">Web Development</button>
+            <button class="filter-btn" data-category="games">Games</button>
+        </div>
+        <div class="tech-filters">
+            <button class="tech-btn active" data-tech="all">All Tech</button>
+            <button class="tech-btn" data-tech="cpp">C/C++</button>
+            <button class="tech-btn" data-tech="python">Python</button>
+            <button class="tech-btn" data-tech="java">Java</button>
+            <button class="tech-btn" data-tech="html">HTML/CSS</button>
+            <button class="tech-btn" data-tech="javascript">JavaScript</button>
+            <button class="tech-btn" data-tech="react">React</button>
+            <button class="tech-btn" data-tech="unity">Unity</button>
+            <button class="tech-btn" data-tech="csharp">C#</button>
+            <button class="tech-btn" data-tech="reactnative">React Native</button>
+            <button class="tech-btn" data-tech="android">Android Studio</button>
+        </div>
+    </section>
+
+    <!-- Featured Projects -->
+    <section class="featured-projects">
+        <h2>Featured Projects</h2>
+        <div class="featured-grid">
+            <div class="project-card featured" data-category="web" data-tech="react">
+                <div class="project-image">
+                    <img src="https://via.placeholder.com/400x300" alt="E-commerce Platform">
+                    <div class="project-overlay">
+                        <div class="project-details">
+                            <h3>E-commerce Platform</h3>
+                            <p>A full-stack e-commerce solution with modern features including real-time inventory, user authentication, and payment processing.</p>
+                            <div class="tech-stack">
+                                <span>React</span>
+                                <span>Node.js</span>
+                                <span>MongoDB</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="btn btn-primary">Live Demo</a>
+                                <a href="#" class="btn btn-outline">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card featured" data-category="games" data-tech="unity">
+                <div class="project-image">
+                    <img src="https://via.placeholder.com/400x300" alt="2D Platformer">
+                    <div class="project-overlay">
+                        <div class="project-details">
+                            <h3>Adventure Quest</h3>
+                            <p>An engaging 2D platformer game with unique mechanics, custom physics, and dynamic level generation.</p>
+                            <div class="tech-stack">
+                                <span>Unity</span>
+                                <span>C#</span>
+                                <span>Blender</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="btn btn-primary">Play Demo</a>
+                                <a href="#" class="btn btn-outline">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Categories -->
+    <section class="project-categories">
+        <div class="projects-grid">
+            <!-- Academic Projects -->
+            <div class="project-card" data-category="academic" data-tech="cpp">
+                <div class="project-image">
+                    <img src="https://via.placeholder.com/400x300" alt="Algorithm Visualizer">
+                    <div class="project-overlay">
+                        <div class="project-details">
+                            <h3>Algorithm Visualizer</h3>
+                            <p>Interactive visualization of sorting algorithms with real-time performance metrics and step-by-step execution.</p>
+                            <div class="tech-stack">
+                                <span>C++</span>
+                                
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="btn btn-primary">View Project</a>
+                                <a href="#" class="btn btn-outline">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="academic" data-tech="java cpp">
+                <div class="project-image">
+                    <img src="https://via.placeholder.com/400x300" alt="Database System">
+                    <div class="project-overlay">
+                        <div class="project-details">
+                            <h3>Database Management System</h3>
+                            <p>Custom DBMS implementation with query processing, indexing, and transaction management.</p>
+                            <div class="tech-stack">
+                                <span>Java</span>
+                                <span>SQL</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="btn btn-primary">View Project</a>
+                                <a href="#" class="btn btn-outline">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Apps -->
+            <div class="project-card" data-category="mobile" data-tech="reactnative">
+                <div class="project-image">
+                    <img src="https://via.placeholder.com/400x300" alt="Fitness Tracker">
+                    <div class="project-overlay">
+                        <div class="project-details">
+                            <h3>Fitness Tracker</h3>
+                            <p>Cross-platform mobile app for tracking workouts, nutrition, and progress with data visualization.</p>
+                            <div class="tech-stack">
+                                <span>React Native</span>
+                                <span>Firebase</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="btn btn-primary">View App</a>
+                                <a href="#" class="btn btn-outline">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Web Development -->
+            <div class="project-card" data-category="web" data-tech="react">
+                <div class="project-image">
+                    <img src="https://via.placeholder.com/400x300" alt="Task Manager">
+                    <div class="project-overlay">
+                        <div class="project-details">
+                            <h3>Task Manager</h3>
+                            <p>Full-stack web application for project and task management with real-time updates and team collaboration.</p>
+                            <div class="tech-stack">
+                                <span>React</span>
+                                <span>Node.js</span>
+                                <span>PostgreSQL</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="btn btn-primary">Live Demo</a>
+                                <a href="#" class="btn btn-outline">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Games -->
+            <div class="project-card" data-category="games" data-tech="unity">
+                <div class="project-image">
+                    <img src="https://via.placeholder.com/400x300" alt="Puzzle Game">
+                    <div class="project-overlay">
+                        <div class="project-details">
+                            <h3>Mind Bender</h3>
+                            <p>Challenging puzzle game with unique mechanics, custom physics, and dynamic level generation.</p>
+                            <div class="tech-stack">
+                                <span>Unity</span>
+                                <span>C#</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="btn btn-primary">Play Demo</a>
+                                <a href="#" class="btn btn-outline">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Pages Links -->
+    <section class="category-links">
+        <h2>Explore by Category</h2>
+        <div class="category-grid">
+            <a href="projects/academic.html" class="category-card">
+                <i class="fas fa-graduation-cap"></i>
+                <h3>Academic Projects</h3>
+                <p>C/C++, Java, and other academic solutions</p>
+            </a>
+            <a href="projects/mobile.html" class="category-card">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Mobile Applications</h3>
+                <p>React Native and mobile development</p>
+            </a>
+            <a href="projects/web.html" class="category-card">
+                <i class="fas fa-code"></i>
+                <h3>Web Development</h3>
+                <p>Websites and web applications</p>
+            </a>
+            <a href="projects/games.html" class="category-card">
+                <i class="fas fa-gamepad"></i>
+                <h3>Game Development</h3>
+                <p>Unity games and interactive experiences</p>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Miletic. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://github.com/mmileticc" target="_blank" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/milinko-miletic" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Core modules -->
+    <script type="module" src="js/core/theme.js"></script>
+    <script type="module" src="js/core/navigation.js"></script>
+    <script type="module" src="js/core/animations.js"></script>
+    <!-- Feature modules -->
+    <script type="module" src="js/features/project-filters.js"></script>
+</body>
+</html> 

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio sajt Miletica - Game Developer, Programer i Kreativac">
+    <title data-translate="pageTitle">Miletic Portfolio</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="index.html">
+                <i class="fas fa-code"></i>
+                <span class="brand-text">Miletic<span class="accent">.dev</span></span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="projects.html">Projects</a>
+            <a href="contact.html">Contact</a>
+            <button class="theme-toggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+        <button class="nav-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-image">
+                <img src="images/slika za cv najbolja.jpg" alt="Milinko Miletić" class="profile-picture">
+            </div>
+            <div class="hero-text">
+                <h1>Hi, I'm <span class="glitch" data-text="Milinko Miletic">Milinko Miletić</span></h1>
+                <p class="subtitle">Software Engineering Student & Developer</p>
+                <p class="hero-description">With 7 years of programming experience, I'm passionate about creating practical applications and games while continuously expanding my technical expertise.</p>
+                <div class="hero-buttons">
+                    <a href="projects.html" class="btn btn-primary">View My Work</a>
+                    <a href="contact.html" class="btn btn-outline">Get in Touch</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <div class="mouse"></div>
+            <p>Scroll Down</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <p>I'm a software engineering student at ETF Belgrade with 7 years of programming experience. 
+               My journey began in high school with IT specialization, where I first encountered C# and web development. 
+               Currently, I'm focusing on creating complete applications and games, including an Exercise Tracker app in Android Studio 
+               and participating in game development through Unity at the Engage Game Jam.</p>
+            
+            <div class="about-highlights">
+                <div class="highlight-item">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Education</h3>
+                    <p>Strong foundation in programming fundamentals and algorithms through academic projects at ETF Belgrade.</p>
+                </div>
+                <div class="highlight-item">
+                    <i class="fas fa-code-branch"></i>
+                    <h3>Development</h3>
+                    <p>Hands-on experience with modern frameworks and tools, focusing on both mobile and game development.</p>
+                </div>
+                <div class="highlight-item">
+                    <i class="fas fa-rocket"></i>
+                    <h3>Goals</h3>
+                    <p>Expanding expertise in React and React Native to build production-ready applications with modern best practices.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills">
+        <h2>Skills</h2>
+        <div class="skills-container">
+            <!-- Programming Languages -->
+            <div class="skill-category">
+                <h3><i class="fas fa-code"></i> Programming Languages</h3>
+                <div class="skill-items">
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>C/C++</span>
+                            <span class="skill-level">Intermediate</span>
+                        </div>
+                        <p class="skill-description">Academic focus, strong understanding of fundamentals and low-level concepts</p>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Java</span>
+                            <span class="skill-level">Intermediate</span>
+                        </div>
+                        <p class="skill-description">Academic projects, object-oriented programming</p>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Python</span>
+                            <span class="skill-level">Intermediate</span>
+                        </div>
+                        <p class="skill-description">Academic projects, console applications</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Frontend Development -->
+            <div class="skill-category">
+                <h3><i class="fas fa-paint-brush"></i> Frontend Development</h3>
+                <div class="skill-items">
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>HTML/CSS</span>
+                            <span class="skill-level">Intermediate</span>
+                        </div>
+                        <p class="skill-description">Responsive design, modern layouts, CSS animations</p>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>JavaScript</span>
+                            <span class="skill-level">Learning</span>
+                        </div>
+                        <p class="skill-description">Currently deepening knowledge for React development</p>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>React</span>
+                            <span class="skill-level">Learning</span>
+                        </div>
+                        <p class="skill-description">In progress, focusing on fundamentals and component architecture</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Backend Development -->
+            <div class="skill-category">
+                <h3><i class="fas fa-server"></i> Backend Development</h3>
+                <div class="skill-items">
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Node.js</span>
+                            <span class="skill-level">Learning</span>
+                        </div>
+                        <p class="skill-description">Currently exploring server-side JavaScript development</p>
+                    </div>
+                
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>SQL</span>
+                            <span class="skill-level">Intermediate</span>
+                        </div>
+                        <p class="skill-description">Database designing and querying</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Development -->
+            <div class="skill-category">
+                <h3><i class="fas fa-gamepad"></i> Game Development</h3>
+                <div class="skill-items">
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Unity</span>
+                            <span class="skill-level">Learning</span>
+                        </div>
+                        <p class="skill-description">Game Jam experience, currently expanding knowledge</p>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>C#</span>
+                            <span class="skill-level">Intermediate</span>
+                        </div>
+                        <p class="skill-description">High school background, Unity development</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Development -->
+            <div class="skill-category">
+                <h3><i class="fas fa-mobile-alt"></i> Mobile Development</h3>
+                <div class="skill-items">
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Android Studio</span>
+                            <span class="skill-level">Learning</span>
+                        </div>
+                        <p class="skill-description">Exercise Tracker app development</p>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>React Native</span>
+                            <span class="skill-level">Learning</span>
+                        </div>
+                        <p class="skill-description">Currently expanding knowledge</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Miletic. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://github.com/mmileticc" target="_blank" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/milinko-miletic" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/language.js"></script>
+    <!-- Core modules -->
+    <script type="module" src="js/core/theme.js"></script>
+    <script type="module" src="js/core/navigation.js"></script>
+    <script type="module" src="js/core/animations.js"></script>
+</body>
+</html> 
