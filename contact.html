@@ -12,15 +12,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-brand">
-            <a href="index.html">Portfolio</a>
+            <a href="index.html">
+                <i class="fas fa-code"></i>
+                <span class="brand-text">Miletic<span class="accent">.dev</span></span>
+            </a>
         </div>
         <div class="nav-links">
-            <a href="index.html">Home</a>
+            <a href="index.html" class="active">Home</a>
             <a href="projects.html">Projects</a>
-            <a href="contact.html" class="active">Contact</a>
+            <a href="contact.html">Contact</a>
             <button class="theme-toggle" aria-label="Toggle theme">
                 <i class="fas fa-moon"></i>
             </button>

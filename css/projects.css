@@ -57,7 +57,7 @@
 /* Tech Filters */
 .tech-filters {
     display: flex;
-    justify-content: center;
+    /*justify-content: center;*/
     flex-wrap: wrap;
     gap: 1rem;
     margin-top: 1rem;
@@ -79,7 +79,7 @@
     border-color: var(--accent-color);
 }
 
-/* Featured Projects */
+/* Featured Projects 
 .featured-projects {
     padding: 4rem 2rem;
 }
@@ -95,15 +95,19 @@
     gap: 2rem;
     max-width: 1200px;
     margin: 0 auto;
-}
+}*/
 
 /* Projects Grid */
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
     gap: 2rem;
     padding: 2rem 0;
+    
+
 }
+
+
 
 /* Project Cards */
 .project-card {
@@ -119,6 +123,9 @@
 }
 
 .project-image {
+    aspect-ratio: 4 / 3; 
+    width: 100%;
+
     position: relative;
     overflow: hidden;
 }
@@ -226,7 +233,7 @@
     transform: translateY(-2px);
 }
 
-/* Category Links */
+/* Category Links 
 .category-links {
     padding: 4rem 2rem;
     background-color: var(--bg-secondary);
@@ -270,7 +277,7 @@
 
 .category-card p {
     color: var(--text-secondary);
-}
+}*/
 
 /* Back to Projects */
 .back-to-projects {
