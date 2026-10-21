@@ -1,0 +1,108 @@
+<div class="page container">
+  <header class="page-head">
+    <p class="eyebrow">Liner notes</p>
+    <h1>About me</h1>
+    <p>The credits, the influences and the gear.</p>
+  </header>
+
+  <section class="intro">
+    <div class="bio card">
+      <p>
+        I'm Milinko, a software engineer from Belgrade. I finished my bachelor's in software
+        engineering at the School of Electrical Engineering (ETF) and I'm now doing my master's
+        there.
+      </p>
+      <p>
+        I enjoy projects that touch every layer. Movienee, my biggest one, has scrapers for seven
+        cinema chains, a Kotlin/Ktor backend, a native Android app and an Angular web app, and I
+        built all of it. I care about the details that make software feel solid: offline support,
+        sensible error messages, accessibility and fast loading.
+      </p>
+      <p>
+        Outside of code I play guitar and I'm learning the harmonica, which is how
+        <a routerLink="/projects/goth" class="link">GotH</a> and my
+        <a [href]="githubUrl + '/Android-Guitar-Tuner'" target="_blank" rel="noopener" class="link"
+          >guitar tuner</a
+        >
+        came to be.
+      </p>
+    </div>
+
+    <aside class="facts card" aria-label="Fact sheet">
+      <p class="eyebrow">Fact sheet</p>
+      <dl>
+        <div>
+          <dt>Based in</dt>
+          <dd>{{ site.location }}</dd>
+        </div>
+        <div>
+          <dt>Studying</dt>
+          <dd>MSc Software Engineering, ETF</dd>
+        </div>
+        <div>
+          <dt>Main tools</dt>
+          <dd>Kotlin, Angular, Android</dd>
+        </div>
+        <div>
+          <dt>Plays</dt>
+          <dd>Guitar, harmonica</dd>
+        </div>
+        <div>
+          <dt>Building</dt>
+          <dd><a routerLink="/projects/movienee" class="link">Movienee</a></dd>
+        </div>
+      </dl>
+      <a routerLink="/contact" class="btn">Get in touch</a>
+    </aside>
+  </section>
+
+  <app-cable class="cable" />
+
+  <section aria-labelledby="tracks-title">
+    <p class="eyebrow">Track list</p>
+    <h2 id="tracks-title">Education</h2>
+    <ol class="tracks">
+      @for (t of tracks; track t.title; let i = $index) {
+        <li>
+          <span class="side mono">{{ i === 0 ? 'A' : 'B' }}{{ i + 1 }}</span>
+          <div>
+            <p class="when mono">{{ t.when }}</p>
+            <h3>{{ t.title }}</h3>
+            <p class="place">{{ t.place }}</p>
+            @if (t.notes) {
+              <p class="notes-title">Projects from the coursework:</p>
+              <ul class="notes">
+                @for (n of t.notes; track n.name) {
+                  <li>
+                    <a [href]="githubUrl + '/' + n.repo" target="_blank" rel="noopener">
+                      <strong>{{ n.name }}</strong
+                      >: {{ n.text }}
+                    </a>
+                  </li>
+                }
+              </ul>
+            }
+          </div>
+        </li>
+      }
+    </ol>
+  </section>
+
+  <app-cable class="cable" [flip]="true" />
+
+  <section aria-labelledby="tone-title">
+    <p class="eyebrow">Tone stack</p>
+    <h2 id="tone-title">What I work with</h2>
+    <ul class="tone">
+      @for (g of toneStack; track g.name) {
+        <li class="card">
+          <app-knob [value]="7" />
+          <div>
+            <h3>{{ g.name }}</h3>
+            <p>{{ g.items.join(' · ') }}</p>
+          </div>
+        </li>
+      }
+    </ul>
+  </section>
+</div>

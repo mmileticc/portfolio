@@ -1,0 +1,24 @@
+@if (post(); as p) {
+  <article class="page container">
+    <header class="head">
+      <a routerLink="/blog" class="back mono">← Setlist</a>
+      <h1>{{ p.title }}</h1>
+      <p class="meta mono">
+        <time [attr.datetime]="p.date">{{ formatDate(p.date) }}</time> · {{ p.readingMinutes }} min
+        read
+        @for (tag of p.tags; track tag) {
+          · #{{ tag }}
+        }
+      </p>
+    </header>
+
+    <div class="prose" [innerHTML]="body()"></div>
+
+    <footer class="end">
+      <a routerLink="/blog" class="btn btn--ghost">← All posts</a>
+      <a routerLink="/contact" class="btn">Say hi</a>
+    </footer>
+  </article>
+} @else {
+  <app-not-found />
+}

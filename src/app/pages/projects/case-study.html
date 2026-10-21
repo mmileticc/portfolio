@@ -1,0 +1,105 @@
+@if (project(); as p) {
+  <article [style.--enclosure]="p.color" [style.--enclosure-ink]="p.ink">
+    <header class="hero">
+      <div class="container hero-grid">
+        <app-pedal [project]="p" [alwaysOn]="true" class="hero-pedal" />
+        <div class="hero-text">
+          <a routerLink="/projects" class="back mono">← The board</a>
+          <p class="eyebrow">Pedal manual · {{ p.model }}</p>
+          <h1>{{ p.name }}</h1>
+          <p class="tagline">{{ p.tagline }}</p>
+          <p class="summary">{{ p.summary }}</p>
+          <ul class="links">
+            @for (l of p.links; track l.url) {
+              <li>
+                <a
+                  [href]="l.url"
+                  target="_blank"
+                  rel="noopener"
+                  class="btn"
+                  [class.btn--ghost]="l.kind !== 'live'"
+                  >{{ l.label }} ↗</a
+                >
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <div class="container manual">
+      <section aria-labelledby="problem">
+        <h2 id="problem"><span class="num mono">01</span> The problem</h2>
+        <div class="prose">
+          @for (para of p.problem; track $index) {
+            <p>{{ para }}</p>
+          }
+        </div>
+      </section>
+
+      <section aria-labelledby="flow">
+        <h2 id="flow"><span class="num mono">02</span> Signal flow</h2>
+        <ol class="chain" [style.--stages]="p.flow.length">
+          @for (stage of p.flow; track stage.label; let first = $first; let last = $last) {
+            <li [class.io]="first || last">
+              <span class="stage-label">{{ stage.label }}</span>
+              <span class="stage-detail">{{ stage.detail }}</span>
+            </li>
+          }
+        </ol>
+      </section>
+
+      <section aria-labelledby="controls">
+        <h2 id="controls"><span class="num mono">03</span> Controls</h2>
+        <ul class="features">
+          @for (f of p.features; track f.title) {
+            <li class="card">
+              <h3>{{ f.title }}</h3>
+              <p>{{ f.text }}</p>
+            </li>
+          }
+        </ul>
+      </section>
+
+      <section aria-labelledby="specs">
+        <h2 id="specs"><span class="num mono">04</span> Specs</h2>
+        <dl class="specs card">
+          @for (s of p.stack; track s.group) {
+            <div>
+              <dt class="mono">{{ s.group }}</dt>
+              <dd>
+                @for (item of s.items; track item) {
+                  <span class="chip">{{ item }}</span>
+                }
+              </dd>
+            </div>
+          }
+        </dl>
+      </section>
+
+      @if (p.images.length) {
+        <section aria-labelledby="shots">
+          <h2 id="shots"><span class="num mono">05</span> On stage</h2>
+          <div class="shots">
+            @for (img of p.images; track img.src) {
+              <figure [class.phone]="img.phone">
+                <img [src]="img.src" [alt]="img.alt" loading="lazy" decoding="async" />
+                <figcaption>{{ img.alt }}</figcaption>
+              </figure>
+            }
+          </div>
+        </section>
+      }
+
+      @if (next(); as n) {
+        <a class="next card" [routerLink]="['/projects', n.slug]" [style.--next]="n.color">
+          <span class="eyebrow">Next pedal</span>
+          <span class="next-name">{{ n.name }} →</span>
+          <span class="next-tag">{{ n.tagline }}</span>
+        </a>
+      }
+    </div>
+  </article>
+} @else {
+  <app-not-found />
+}

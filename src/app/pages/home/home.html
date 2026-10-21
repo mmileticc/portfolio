@@ -1,0 +1,68 @@
+<section class="hero container">
+  <div class="intro">
+    <p class="eyebrow">Input · Belgrade, Serbia</p>
+    <h1>
+      Hi, I'm Milinko.
+      <span class="line2">I build things <em>end to end</em>.</span>
+    </h1>
+    <p class="lede">
+      Software engineer with a BSc from ETF Belgrade, now doing a master's in software engineering.
+      I like products with many moving parts: scrapers, Kotlin backends, Android apps and web
+      frontends. When the build is running, I play guitar.
+    </p>
+    <div class="ctas">
+      <a routerLink="/projects" class="btn">Hear the board →</a>
+      <a routerLink="/contact" class="btn btn--ghost">Book a session</a>
+    </div>
+  </div>
+
+  <app-now-playing class="amp" />
+</section>
+
+<app-cable class="cable" />
+
+<section class="board-preview container" aria-labelledby="board-title">
+  <div class="section-head">
+    <p class="eyebrow">The board</p>
+    <h2 id="board-title">Four pedals I'm proud of</h2>
+    <p>Each one is a project with its own sound. Stomp on one to read its manual.</p>
+  </div>
+
+  <div class="rails">
+    <ul class="pedals">
+      @for (p of projects; track p.slug) {
+        <li><app-pedal [project]="p" size="sm" /></li>
+      }
+    </ul>
+  </div>
+
+  <a routerLink="/projects" class="link more">Open the full board and the gig bag →</a>
+</section>
+
+<app-cable class="cable" [flip]="true" />
+
+<section class="duo container">
+  <article class="card notes">
+    <p class="eyebrow">Liner notes</p>
+    <h2>Engineer by training, musician by habit.</h2>
+    <p>
+      Systems courses at ETF taught me the low level: an operating system kernel for RISC-V and a
+      compiler for MicroJava. These days I mostly ship Kotlin, Android and Angular.
+    </p>
+    <a routerLink="/about" class="link">Read the liner notes →</a>
+  </article>
+
+  @if (latestPost) {
+    <article class="card setlist">
+      <p class="eyebrow">Latest from the setlist</p>
+      <h2>
+        <a [routerLink]="['/blog', latestPost.slug]">{{ latestPost.title }}</a>
+      </h2>
+      <p class="meta mono">
+        {{ formatDate(latestPost.date) }} · {{ latestPost.readingMinutes }} min read
+      </p>
+      <p>{{ latestPost.summary }}</p>
+      <a routerLink="/blog" class="link">All posts →</a>
+    </article>
+  }
+</section>

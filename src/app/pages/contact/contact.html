@@ -1,0 +1,132 @@
+<div class="page container">
+  <header class="page-head">
+    <p class="eyebrow">Booking</p>
+    <h1>Let's jam.</h1>
+    <p>
+      A project, a job, a question about something I built, or just a good riff. Send a message and
+      I'll get back to you.
+    </p>
+  </header>
+
+  <div class="layout">
+    <section class="form-card card" aria-labelledby="form-title">
+      <h2 id="form-title" class="visually-hidden">Send a message</h2>
+
+      @if (state() === 'sent') {
+        <div class="sent" role="status">
+          <app-led [on]="true" color="#3ddc84" />
+          <div>
+            <p class="sent-title">Message received, loud and clear.</p>
+            <p>Thanks for reaching out. I'll reply to the address you gave me.</p>
+            <button type="button" class="btn btn--ghost" (click)="state.set('idle')">
+              Send another
+            </button>
+          </div>
+        </div>
+      } @else {
+        <form [formGroup]="form" (ngSubmit)="send()" novalidate>
+          <div class="field">
+            <label for="name">Name</label>
+            <input
+              id="name"
+              type="text"
+              formControlName="name"
+              autocomplete="name"
+              [attr.aria-invalid]="showError('name')"
+              aria-describedby="name-error"
+            />
+            @if (showError('name')) {
+              <p id="name-error" class="error">Tell me who you are.</p>
+            }
+          </div>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <input
+              id="email"
+              type="email"
+              formControlName="email"
+              autocomplete="email"
+              [attr.aria-invalid]="showError('email')"
+              aria-describedby="email-error"
+            />
+            @if (showError('email')) {
+              <p id="email-error" class="error">I need a valid address to reply to.</p>
+            }
+          </div>
+
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea
+              id="message"
+              rows="6"
+              formControlName="message"
+              [attr.aria-invalid]="showError('message')"
+              aria-describedby="message-error"
+            ></textarea>
+            @if (showError('message')) {
+              <p id="message-error" class="error">
+                A few more words, please (at least 10 characters).
+              </p>
+            }
+          </div>
+
+          <div class="honeypot" aria-hidden="true">
+            <label for="gotcha">Leave this empty</label>
+            <input
+              id="gotcha"
+              type="text"
+              formControlName="_gotcha"
+              tabindex="-1"
+              autocomplete="off"
+            />
+          </div>
+
+          @if (state() === 'error') {
+            <p class="error" role="alert">
+              The message didn't go through.
+              @if (site.email) {
+                Try again, or email me at
+                <a class="link" [href]="'mailto:' + site.email">{{ site.email }}</a
+                >.
+              } @else {
+                Please try again in a moment.
+              }
+            </p>
+          }
+
+          <div class="actions">
+            <button type="submit" class="btn" [disabled]="!formEnabled || state() === 'sending'">
+              {{ state() === 'sending' ? 'Sending...' : 'Send message' }}
+            </button>
+            @if (!formEnabled) {
+              <p class="note mono">
+                The form is not connected yet. Use the links on the side for now.
+              </p>
+            }
+          </div>
+        </form>
+      }
+    </section>
+
+    <aside class="channels" aria-label="Other ways to reach me">
+      @if (site.email) {
+        <a class="channel card" [href]="'mailto:' + site.email">
+          <span class="eyebrow">Email</span>
+          <span class="value">{{ site.email }}</span>
+        </a>
+      }
+      @if (site.linkedin) {
+        <a class="channel card" [href]="site.linkedin" target="_blank" rel="noopener">
+          <span class="eyebrow">LinkedIn</span>
+          <span class="value">Connect with me ↗</span>
+        </a>
+      }
+      <a class="channel card" [href]="githubUrl" target="_blank" rel="noopener">
+        <span class="eyebrow">GitHub</span>
+        <span class="value">github.com/{{ site.githubUser }} ↗</span>
+      </a>
+      <p class="where mono">Based in {{ site.location }} (CET).</p>
+    </aside>
+  </div>
+</div>
