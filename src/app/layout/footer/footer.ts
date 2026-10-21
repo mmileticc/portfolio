@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { GITHUB_URL, SITE } from '../../site.config';
+import { injectEmail } from '../../core/email';
 
 @Component({
   selector: 'app-footer',
@@ -17,8 +18,8 @@ import { GITHUB_URL, SITE } from '../../site.config';
             @if (site.linkedin) {
               <li><a [href]="site.linkedin" target="_blank" rel="noopener">LinkedIn</a></li>
             }
-            @if (site.email) {
-              <li><a [href]="'mailto:' + site.email">Email</a></li>
+            @if (email(); as address) {
+              <li><a [href]="'mailto:' + address">Email</a></li>
             }
             <li><a routerLink="/contact">Contact</a></li>
           </ul>
@@ -109,5 +110,6 @@ import { GITHUB_URL, SITE } from '../../site.config';
 export class Footer {
   protected readonly site = SITE;
   protected readonly githubUrl = GITHUB_URL;
+  protected readonly email = injectEmail();
   protected readonly year = new Date().getFullYear();
 }

@@ -85,9 +85,9 @@
           @if (state() === 'error') {
             <p class="error" role="alert">
               The message didn't go through.
-              @if (site.email) {
+              @if (email(); as address) {
                 Try again, or email me at
-                <a class="link" [href]="'mailto:' + site.email">{{ site.email }}</a
+                <a class="link" [href]="'mailto:' + address">{{ address }}</a
                 >.
               } @else {
                 Please try again in a moment.
@@ -110,10 +110,10 @@
     </section>
 
     <aside class="channels" aria-label="Other ways to reach me">
-      @if (site.email) {
-        <a class="channel card" [href]="'mailto:' + site.email">
+      @if (email(); as address) {
+        <a class="channel card" [href]="'mailto:' + address">
           <span class="eyebrow">Email</span>
-          <span class="value">{{ site.email }}</span>
+          <span class="value">{{ address }}</span>
         </a>
       }
       @if (site.linkedin) {
