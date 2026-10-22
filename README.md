@@ -50,3 +50,11 @@ The site is served from `/portfolio/` (`baseHref` in the production build config
 One-time setup in the repository: **Settings → Pages → Source: GitHub Actions**.
 After the build, `scripts/postbuild.ts` copies the prerendered `/404` page to `404.html`, which
 GitHub Pages serves for unknown URLs.
+
+## Branches
+
+- `main` is what is live. Every push to it deploys.
+- `develop` collects the next version. CI (`ci.yml`) lints, tests and builds it without deploying.
+- Larger features can go on `feature/<name>` branches off `develop`.
+- When a version is ready, open a pull request from `develop` to `main` and merge it to release.
+
