@@ -9,18 +9,26 @@ import { SeoService } from '../../core/seo.service';
   template: `
     <div class="page container wrap">
       <svg class="broken" viewBox="0 0 320 120" aria-hidden="true">
-        <path d="M10 60 C 60 10, 100 110, 140 58" />
-        <path d="M180 62 C 220 10, 260 110, 310 60" />
-        <rect x="132" y="48" width="22" height="20" rx="4" class="plug" />
-        <rect x="168" y="52" width="22" height="20" rx="4" class="plug" />
-        <text x="160" y="30" text-anchor="middle">bzzzt</text>
+        <!-- Five strings intact, one snapped and curled at both ends. -->
+        @for (y of [30, 45, 60, 90, 105]; track y) {
+          <line x1="10" x2="310" [attr.y1]="y" [attr.y2]="y" class="string" />
+        }
+        <path
+          d="M10 75 L 140 75 C 160 75, 168 60, 156 52 C 146 46, 138 58, 150 62"
+          class="snapped"
+        />
+        <path
+          d="M310 75 L 190 75 C 172 75, 166 92, 178 98 C 188 102, 194 90, 182 88"
+          class="snapped"
+        />
+        <text x="160" y="22" text-anchor="middle">twang!</text>
       </svg>
       <p class="eyebrow">Error 404</p>
-      <h1>Signal lost.</h1>
+      <h1>A string snapped.</h1>
       <p class="text">
-        This page came unplugged, or it never existed. Let's get you back on the board.
+        This page is out of tune, or it never existed. Let's get you back to the songbook.
       </p>
-      <a routerLink="/" class="btn">Plug back in</a>
+      <a routerLink="/" class="btn">Restring and go home</a>
     </div>
   `,
   styles: `
@@ -37,29 +45,27 @@ import { SeoService } from '../../core/seo.service';
       width: min(100%, 360px);
       margin-bottom: 10px;
 
-      path {
+      .string {
+        stroke: var(--string);
+        stroke-width: 1.6;
+      }
+
+      .snapped {
         fill: none;
-        stroke: var(--ink);
-        stroke-width: 7;
+        stroke: var(--string);
+        stroke-width: 2.4;
         stroke-linecap: round;
       }
 
-      .plug {
-        fill: #c9c3b8;
-        stroke: var(--ink);
-        stroke-width: 2;
-      }
-
       text {
-        font-family: var(--font-mono);
-        font-size: 16px;
-        font-weight: 700;
+        font-family: var(--font-hand);
+        font-size: 22px;
         fill: var(--accent);
-        animation: buzz 0.25s steps(2) infinite;
+        animation: twang 0.3s steps(2) infinite;
       }
     }
 
-    @keyframes buzz {
+    @keyframes twang {
       50% {
         transform: translate(1px, -1px);
       }
@@ -79,7 +85,7 @@ import { SeoService } from '../../core/seo.service';
 })
 export default class NotFound {
   constructor() {
-    inject(SeoService).set({ path: '/404', title: 'Signal lost' });
+    inject(SeoService).set({ path: '/404', title: 'A string snapped' });
     inject(Meta).updateTag({ name: 'robots', content: 'noindex' });
   }
 }

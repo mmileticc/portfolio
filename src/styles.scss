@@ -1,49 +1,63 @@
 /* ───────────── Tokens ───────────── */
 
+/* Light is a spruce top and paper; dark is a rosewood back by lamplight. */
 @mixin dark-tokens {
-  --board: #16130f;
-  --board-2: #1d1914;
-  --surface: #221e18;
-  --surface-2: #2b261f;
-  --ink: #f4ecdf;
-  --ink-soft: #c9bfae;
-  --muted: #968b7a;
-  --line: rgba(244, 236, 223, 0.12);
-  --line-strong: rgba(244, 236, 223, 0.24);
-  --accent: #ff7a45;
-  --accent-ink: #1a0f08;
-  --grille: #0e0c0a;
+  --board: #1b1310;
+  --board-2: #221814;
+  --surface: #2a1f19;
+  --surface-2: #33261f;
+  --paper: #f1e4cc;
+  --paper-ink: #2b1d14;
+  --ink: #f3e6d3;
+  --ink-soft: #d2c2ab;
+  --muted: #a3917a;
+  --line: rgba(243, 230, 211, 0.12);
+  --line-strong: rgba(243, 230, 211, 0.24);
+  --accent: #e8955c;
+  --accent-ink: #1b1310;
+  --string: #d9c9a8;
+  --grain: rgba(0, 0, 0, 0.22);
   --shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 18px 40px -18px rgba(0, 0, 0, 0.8);
-  --texture-opacity: 0.5;
   color-scheme: dark;
 }
 
 :root {
-  --board: #f2e8d5;
-  --board-2: #ebdfc8;
+  --board: #f1e2c4;
+  --board-2: #ead7b3;
   --surface: #fffaf0;
-  --surface-2: #f7efdf;
-  --ink: #1f1a14;
-  --ink-soft: #4a4136;
-  --muted: #776c5d;
-  --line: rgba(31, 26, 20, 0.12);
-  --line-strong: rgba(31, 26, 20, 0.24);
-  --accent: #d9481c;
+  --surface-2: #f6ecda;
+  --paper: #fffaf0;
+  --paper-ink: #2b1d14;
+  --ink: #2b1d14;
+  --ink-soft: #55402f;
+  --muted: #7c6650;
+  --line: rgba(43, 29, 20, 0.12);
+  --line-strong: rgba(43, 29, 20, 0.24);
+  --accent: #a8461f;
   --accent-ink: #fffaf0;
-  --grille: #2a241d;
-  --shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 18px 40px -20px rgba(70, 45, 15, 0.45);
-  --texture-opacity: 0.35;
+  --string: #8c7a5c;
+  --grain: rgba(120, 80, 30, 0.07);
+  --shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 18px 40px -20px rgba(90, 55, 20, 0.4);
   color-scheme: light;
 
-  /* Pedal enclosures */
-  --pedal-red: #e0453a;
-  --pedal-orange: #f08a24;
-  --pedal-green: #2f9e5f;
-  --pedal-blue: #3a72d0;
-  --led: #ff3b2f;
+  /* Wood for the guitar body, the same in both themes. */
+  --spruce: #e9cf9c;
+  --spruce-dark: #c99a5b;
+  --rosewood: #4a2618;
+  --mahogany: #7a3b1f;
 
-  --font-display: 'Bricolage Grotesque Variable', 'Inter Variable', system-ui, sans-serif;
+  /* One colour per song in the songbook. */
+  --song-red: #b8452f;
+  --song-amber: #c27a1e;
+  --song-green: #3f7d4f;
+  --song-blue: #36649c;
+  --song-plum: #7a4b7a;
+  --song-teal: #2f7c7c;
+  --song-slate: #5a6472;
+
+  --font-display: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
   --font-body: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-hand: 'Caveat', 'Segoe Print', cursive;
   --font-mono: 'Space Mono', ui-monospace, 'Cascadia Code', monospace;
 
   --radius: 14px;
@@ -80,13 +94,17 @@ body {
   margin: 0;
   min-height: 100vh;
   background-color: var(--board);
-  /* Subtle tolex / wood grain made of two gradients, no image request. */
+  /* Wood grain from a few uneven stripes, no image request. */
   background-image:
-    radial-gradient(circle at 1px 1px, var(--line) 1px, transparent 0),
+    repeating-linear-gradient(
+      92deg,
+      transparent 0 23px,
+      var(--grain) 23px 24px,
+      transparent 24px 61px,
+      var(--grain) 61px 63px,
+      transparent 63px 97px
+    ),
     linear-gradient(180deg, var(--board) 0%, var(--board-2) 100%);
-  background-size:
-    6px 6px,
-    100% 100%;
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 1rem;
@@ -102,8 +120,9 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  font-weight: 650;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
   margin: 0;
   text-wrap: balance;
 }
@@ -264,6 +283,35 @@ img {
   font-size: 0.75rem;
   color: var(--ink-soft);
   background: var(--surface);
+}
+
+.hand {
+  font-family: var(--font-hand);
+  font-weight: 500;
+  font-size: 1.35em;
+  line-height: 1.1;
+  color: var(--accent);
+}
+
+/* A sheet of music paper: always light, like the real thing, in both themes. */
+.paper {
+  --board: var(--paper);
+  --ink: var(--paper-ink);
+  --ink-soft: #55402f;
+  --muted: #7c6650;
+  --line: rgba(43, 29, 20, 0.12);
+  --line-strong: rgba(43, 29, 20, 0.24);
+  --accent: #a8461f;
+  --accent-ink: #fffaf0;
+  --surface: #fffaf0;
+  --surface-2: #f6ecda;
+  color: var(--paper-ink);
+  background: var(--paper);
+  border-radius: 6px;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
+    0 2px 0 rgba(0, 0, 0, 0.06),
+    0 22px 40px -22px rgba(60, 35, 10, 0.55);
 }
 
 @media (prefers-reduced-motion: reduce) {

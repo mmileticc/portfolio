@@ -1,0 +1,142 @@
+.tuner {
+  width: min(420px, calc(100vw - 32px));
+  padding: 26px 26px 22px;
+  border: 0;
+
+  &::backdrop {
+    background: rgba(20, 12, 8, 0.55);
+    backdrop-filter: blur(3px);
+  }
+}
+
+header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 18px;
+
+  h2 {
+    font-size: 2rem;
+    margin-top: 2px;
+  }
+}
+
+.x {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  color: var(--ink);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.msg {
+  color: var(--ink-soft);
+  margin-bottom: 16px;
+}
+
+.meter {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+
+  svg {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .arc {
+    fill: none;
+    stroke: var(--line-strong);
+    stroke-width: 6;
+    stroke-linecap: round;
+  }
+
+  .tick {
+    stroke: var(--muted);
+    stroke-width: 2;
+  }
+
+  .needle {
+    stroke: var(--accent);
+    stroke-width: 3;
+    stroke-linecap: round;
+    transform-origin: 100px 100px;
+    transition: transform 0.12s linear;
+  }
+
+  .hub {
+    fill: var(--ink);
+  }
+
+  &.good {
+    .needle {
+      stroke: var(--song-green);
+    }
+
+    .note {
+      color: var(--song-green);
+    }
+  }
+}
+
+.note {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 3.6rem;
+  line-height: 1;
+  margin-top: -6px;
+
+  sub {
+    font-size: 0.4em;
+  }
+
+  &.muted {
+    color: var(--muted);
+  }
+}
+
+.cents {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.hint {
+  margin-top: 6px;
+}
+
+.refs {
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--line-strong);
+}
+
+.ref-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.ref {
+  padding: 8px 0;
+  border-radius: 10px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface-2);
+  color: var(--ink);
+  font-weight: 700;
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  sub {
+    font-size: 0.6em;
+  }
+}

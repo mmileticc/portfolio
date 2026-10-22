@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SeoService } from '../../core/seo.service';
-import { Cable } from '../../ui/cable/cable';
-import { Knob } from '../../ui/knob/knob';
+import { Chord } from '../../ui/chord/chord';
+import { Strings } from '../../ui/strings/strings';
 import { GITHUB_URL, SITE } from '../../site.config';
 
 interface Track {
@@ -14,7 +14,7 @@ interface Track {
 
 @Component({
   selector: 'app-about',
-  imports: [RouterLink, Cable, Knob],
+  imports: [RouterLink, Chord, Strings],
   templateUrl: './about.html',
   styleUrl: './about.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -50,7 +50,7 @@ export default class About {
     },
   ];
 
-  protected readonly toneStack = [
+  protected readonly repertoire = [
     { name: 'Languages', items: ['Kotlin', 'Java', 'TypeScript', 'JavaScript', 'C++', 'Python'] },
     { name: 'Android', items: ['Jetpack Compose', 'Hilt', 'Room', 'Coroutines & Flow', 'ML Kit'] },
     { name: 'Backend', items: ['Ktor', 'Exposed', 'PostgreSQL', 'JWT', 'FastAPI'] },
@@ -64,7 +64,7 @@ export default class About {
       path: '/about',
       title: 'About',
       description:
-        'About Milinko Miletić: software engineering at ETF Belgrade, favourite tools, and guitar and harmonica on the side.',
+        'About Milinko Miletić: software engineering at ETF Belgrade, favourite tools, and acoustic guitar and harmonica on the side.',
     });
   }
 }

@@ -1,6 +1,6 @@
 <section class="hero container">
   <div class="intro">
-    <p class="eyebrow">Input · Belgrade, Serbia</p>
+    <p class="eyebrow">Track 1 · Belgrade, Serbia</p>
     <h1>
       Hi, I'm Milinko.
       <span class="line2">I build things <em>end to end</em>.</span>
@@ -8,61 +8,79 @@
     <p class="lede">
       Software engineer with a BSc from ETF Belgrade, now doing a master's in software engineering.
       I like products with many moving parts: scrapers, Kotlin backends, Android apps and web
-      frontends. When the build is running, I play guitar.
+      frontends. When the build is running, I reach for my acoustic guitar.
     </p>
     <div class="ctas">
-      <a routerLink="/projects" class="btn">Hear the board →</a>
-      <a routerLink="/contact" class="btn btn--ghost">Book a session</a>
+      <a routerLink="/projects" class="btn">Open the songbook →</a>
+      <a routerLink="/contact" class="btn btn--ghost">Get in touch</a>
     </div>
   </div>
 
-  <app-now-playing class="amp" />
+  <div class="guitar">
+    <!-- Static until someone reaches for the strings. -->
+    @defer (hydrate on hover) {
+      <app-soundhole class="hole" />
+    }
+    <span class="strum hand" aria-hidden="true">go on, strum it ↓</span>
+    @defer (hydrate on idle) {
+      <app-practice-log class="log" />
+    }
+    <button type="button" class="tune hand" (click)="tuner.open()">psst… there's a tuner ♪</button>
+  </div>
 </section>
 
-<app-cable class="cable" />
+@defer (hydrate on hover) {
+  <app-strings class="divider" />
+}
 
-<section class="board-preview container" aria-labelledby="board-title">
-  <div class="section-head">
-    <p class="eyebrow">The board</p>
-    <h2 id="board-title">Four pedals I'm proud of</h2>
-    <p>Each one is a project with its own sound. Stomp on one to read its manual.</p>
-  </div>
+@defer (hydrate on viewport) {
+  <section class="songbook container" aria-labelledby="songbook-title">
+    <div class="section-head">
+      <p class="eyebrow">The songbook</p>
+      <h2 id="songbook-title">Four songs I'm proud of</h2>
+      <p>Every project is a song with its own lead sheet. Pick one to read how it's played.</p>
+    </div>
 
-  <div class="rails">
-    <ul class="pedals">
-      @for (p of projects; track p.slug) {
-        <li><app-pedal [project]="p" size="sm" /></li>
+    <ul class="songs">
+      @for (p of featured; track p.slug; let i = $index) {
+        <li [style.--tilt]="tilts[i] + 'deg'">
+          <app-song [project]="p" [number]="i + 1" size="sm" />
+        </li>
       }
     </ul>
-  </div>
 
-  <a routerLink="/projects" class="link more">Open the full board and the gig bag →</a>
-</section>
+    <a routerLink="/projects" class="link more">The whole songbook, demos and B-sides →</a>
+  </section>
+}
 
-<app-cable class="cable" [flip]="true" />
+@defer (hydrate on hover) {
+  <app-strings class="divider" />
+}
 
-<section class="duo container">
-  <article class="card notes">
-    <p class="eyebrow">Liner notes</p>
-    <h2>Engineer by training, musician by habit.</h2>
-    <p>
-      Systems courses at ETF taught me the low level: an operating system kernel for RISC-V and a
-      compiler for MicroJava. These days I mostly ship Kotlin, Android and Angular.
-    </p>
-    <a routerLink="/about" class="link">Read the liner notes →</a>
-  </article>
-
-  @if (latestPost) {
-    <article class="card setlist">
-      <p class="eyebrow">Latest from the setlist</p>
-      <h2>
-        <a [routerLink]="['/blog', latestPost.slug]">{{ latestPost.title }}</a>
-      </h2>
-      <p class="meta mono">
-        {{ formatDate(latestPost.date) }} · {{ latestPost.readingMinutes }} min read
+@defer (hydrate on viewport) {
+  <section class="duo container">
+    <article class="paper notes">
+      <p class="eyebrow">Liner notes</p>
+      <h2>Engineer by training, guitarist by habit.</h2>
+      <p>
+        Systems courses at ETF taught me the low level: an operating system kernel for RISC-V and a
+        compiler for MicroJava. These days I mostly ship Kotlin, Android and Angular.
       </p>
-      <p>{{ latestPost.summary }}</p>
-      <a routerLink="/blog" class="link">All posts →</a>
+      <a routerLink="/about" class="link">Read the liner notes →</a>
     </article>
-  }
-</section>
+
+    @if (latestPost) {
+      <article class="paper setlist">
+        <p class="eyebrow">Latest from the setlist</p>
+        <h2>
+          <a [routerLink]="['/blog', latestPost.slug]">{{ latestPost.title }}</a>
+        </h2>
+        <p class="meta mono">
+          {{ formatDate(latestPost.date) }} · {{ latestPost.readingMinutes }} min read
+        </p>
+        <p>{{ latestPost.summary }}</p>
+        <a routerLink="/blog" class="link">All posts →</a>
+      </article>
+    }
+  </section>
+}

@@ -2,30 +2,37 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter } from 'rxjs';
-import { Footswitch } from '../../ui/footswitch/footswitch';
+import { SoundToggle } from '../../ui/sound-toggle/sound-toggle';
+import { TuningPeg } from '../../ui/tuning-peg/tuning-peg';
 
 @Component({
   selector: 'app-nav',
-  imports: [RouterLink, RouterLinkActive, Footswitch],
+  imports: [RouterLink, RouterLinkActive, TuningPeg, SoundToggle],
   template: `
     <header class="bar">
       <div class="container inner">
         <a routerLink="/" class="brand" aria-label="Milinko Miletić, home">
           <svg viewBox="0 0 64 64" aria-hidden="true">
-            <rect
-              x="10"
-              y="4"
-              width="44"
-              height="56"
-              rx="8"
-              fill="var(--pedal-red)"
+            <circle
+              cx="32"
+              cy="32"
+              r="29"
+              fill="var(--spruce)"
               stroke="var(--ink)"
               stroke-width="3"
             />
-            <circle cx="22" cy="17" r="5" fill="var(--ink)" />
-            <circle cx="42" cy="17" r="5" fill="var(--ink)" />
-            <circle cx="32" cy="30" r="3" fill="#ffd23f" />
-            <circle cx="32" cy="46" r="7" fill="#d8d2c6" stroke="var(--ink)" stroke-width="3" />
+            <circle cx="32" cy="32" r="21" fill="none" stroke="var(--rosewood)" stroke-width="5" />
+            <circle
+              cx="32"
+              cy="32"
+              r="21"
+              fill="none"
+              stroke="#e8d6a8"
+              stroke-width="5"
+              stroke-dasharray="2 3"
+            />
+            <circle cx="32" cy="32" r="15" fill="#120a06" />
+            <path d="M26 3v58M32 3v58M38 3v58" stroke="#b89f6a" stroke-width="1.6" />
           </svg>
           <span>milinko<span class="dot">.</span></span>
         </a>
@@ -55,7 +62,10 @@ import { Footswitch } from '../../ui/footswitch/footswitch';
               </li>
             }
           </ul>
-          <app-footswitch />
+          <div class="controls">
+            <app-sound-toggle />
+            <app-tuning-peg />
+          </div>
         </nav>
       </div>
     </header>

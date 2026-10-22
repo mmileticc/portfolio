@@ -12,7 +12,11 @@ import { formatDate } from '../../core/format';
       <header class="page-head">
         <p class="eyebrow">Setlist</p>
         <h1>Blog</h1>
-        <p>Notes on what I build and what I learn along the way.</p>
+        <p>
+          Notes on what I build and what I learn along the way.
+          <!-- A static file, resolved against <base href>. -->
+          <a href="rss.xml" class="link mono rss">RSS feed</a>
+        </p>
       </header>
 
       @if (posts.length) {
@@ -66,7 +70,7 @@ import { formatDate } from '../../core/format';
         top: -14px;
         width: 110px;
         height: 30px;
-        background: color-mix(in srgb, var(--pedal-orange) 45%, transparent);
+        background: color-mix(in srgb, var(--song-amber) 45%, transparent);
         transform: rotate(-4deg);
       }
 
@@ -89,6 +93,11 @@ import { formatDate } from '../../core/format';
           border-top: 2px dashed var(--line-strong);
         }
       }
+    }
+
+    .rss {
+      margin-left: 8px;
+      font-size: 0.8rem;
     }
 
     .n {

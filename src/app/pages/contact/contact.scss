@@ -34,7 +34,7 @@ textarea {
   padding: 12px 14px;
   border-radius: 12px;
   border: 2px solid var(--line-strong);
-  background: var(--board);
+  background: var(--surface-2);
   color: var(--ink);
   font: inherit;
   transition:
@@ -48,7 +48,7 @@ textarea {
   }
 
   &[aria-invalid='true'] {
-    border-color: var(--pedal-red);
+    border-color: var(--song-red);
   }
 }
 
@@ -59,7 +59,7 @@ textarea {
 
 .error {
   font-size: 0.88rem;
-  color: var(--pedal-red);
+  color: var(--song-red);
 }
 
 .honeypot {
@@ -82,10 +82,10 @@ textarea {
 .sent {
   display: flex;
   gap: 16px;
-  --led-size: 14px;
 
-  app-led {
-    margin-top: 8px;
+  .check {
+    font-size: 2.6rem;
+    color: var(--song-green);
   }
 
   > div {

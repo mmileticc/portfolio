@@ -9,12 +9,12 @@
   </header>
 
   <div class="layout">
-    <section class="form-card card" aria-labelledby="form-title">
+    <section class="form-card paper" aria-labelledby="form-title">
       <h2 id="form-title" class="visually-hidden">Send a message</h2>
 
       @if (state() === 'sent') {
         <div class="sent" role="status">
-          <app-led [on]="true" color="#3ddc84" />
+          <span class="check hand" aria-hidden="true">✓</span>
           <div>
             <p class="sent-title">Message received, loud and clear.</p>
             <p>Thanks for reaching out. I'll reply to the address you gave me.</p>

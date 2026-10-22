@@ -28,7 +28,7 @@ export class GithubService {
   /** Safe to call from many components; only the first call does any work. */
   refresh(): Promise<void> {
     if (!this.isBrowser) return Promise.resolve();
-    this.refreshing ??= this.load();
+    this.refreshing ??= whenIdle().then(() => this.load());
     return this.refreshing;
   }
 
@@ -52,6 +52,14 @@ export class GithubService {
     this.snapshot.set(data);
     this.live.set(true);
   }
+}
+
+/** Waits until the browser has a quiet moment, so the refresh never competes with first paint. */
+function whenIdle(): Promise<void> {
+  return new Promise((resolve) => {
+    if ('requestIdleCallback' in window) requestIdleCallback(() => resolve(), { timeout: 2000 });
+    else setTimeout(resolve, 200);
+  });
 }
 
 function readCache(): GithubSnapshot | null {

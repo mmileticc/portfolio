@@ -2,12 +2,14 @@ import { ChangeDetectionStrategy, Component, computed, effect, inject, input } f
 import { RouterLink } from '@angular/router';
 import { PROJECTS, findProject } from '../../content/projects';
 import { SeoService } from '../../core/seo.service';
-import { Pedal } from '../../ui/pedal/pedal';
+import { Chord } from '../../ui/chord/chord';
+import { Song } from '../../ui/song/song';
 import NotFound from '../not-found/not-found';
 
+/** A project's lead sheet. Sections are marked A, B, C… like rehearsal marks in a score. */
 @Component({
   selector: 'app-case-study',
-  imports: [RouterLink, Pedal, NotFound],
+  imports: [RouterLink, Song, Chord, NotFound],
   templateUrl: './case-study.html',
   styleUrl: './case-study.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,6 +19,8 @@ export default class CaseStudy {
   readonly slug = input<string>();
 
   protected readonly project = computed(() => findProject(this.slug()));
+  /** Position in the songbook, counting from 1. */
+  protected readonly number = computed(() => PROJECTS.findIndex((p) => p.slug === this.slug()) + 1);
   protected readonly next = computed(() => {
     const i = PROJECTS.findIndex((p) => p.slug === this.slug());
     return i === -1 ? undefined : PROJECTS[(i + 1) % PROJECTS.length];

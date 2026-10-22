@@ -1,29 +1,32 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { GITHUB_URL, SITE } from '../../site.config';
 import { injectEmail } from '../../core/email';
+import { TunerService } from '../../features/tuner/tuner.service';
 
 @Component({
   selector: 'app-footer',
   imports: [RouterLink],
   template: `
     <footer class="container">
-      <div class="amp">
-        <div class="grille" aria-hidden="true"></div>
-        <div class="body">
-          <p class="eyebrow">Output</p>
-          <p class="line">Signal chain ends here. Thanks for listening.</p>
-          <ul class="links">
-            <li><a [href]="githubUrl" target="_blank" rel="noopener">GitHub</a></li>
-            @if (site.linkedin) {
-              <li><a [href]="site.linkedin" target="_blank" rel="noopener">LinkedIn</a></li>
-            }
-            @if (email(); as address) {
-              <li><a [href]="'mailto:' + address">Email</a></li>
-            }
-            <li><a routerLink="/contact">Contact</a></li>
-          </ul>
-        </div>
+      <div class="back">
+        <p class="eyebrow">Encore</p>
+        <p class="line">That's the set. Thanks for listening.</p>
+        <ul class="links">
+          <li><a [href]="githubUrl" target="_blank" rel="noopener">GitHub</a></li>
+          @if (site.linkedin) {
+            <li><a [href]="site.linkedin" target="_blank" rel="noopener">LinkedIn</a></li>
+          }
+          @if (email(); as address) {
+            <li><a [href]="'mailto:' + address">Email</a></li>
+          }
+          <li><a routerLink="/contact">Contact</a></li>
+          <!-- A static file next to the app, resolved against <base href>. -->
+          <li><a href="rss.xml">RSS</a></li>
+          <li>
+            <button type="button" class="tune" (click)="tuner.open()">Tune up ♪</button>
+          </li>
+        </ul>
       </div>
       <p class="fine mono">
         © {{ year }} {{ site.name }} · Built with Angular, prerendered for GitHub Pages
@@ -35,55 +38,60 @@ import { injectEmail } from '../../core/email';
       padding-block: 24px 40px;
     }
 
-    .amp {
-      display: grid;
-      grid-template-columns: minmax(120px, 220px) 1fr;
-      gap: 0;
-      overflow: hidden;
-      border-radius: var(--radius-lg);
-      background: var(--grille);
-      color: #f4ecdf;
-      box-shadow: var(--shadow);
-      border: 6px solid #2f2922;
-    }
-
-    .grille {
+    /* The back of a guitar: rosewood halves joined by a centre strip. */
+    .back {
+      padding: 32px clamp(20px, 5vw, 48px);
+      border-radius: 28px;
+      color: #f3e6d3;
       background:
-        repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.06) 0 2px, transparent 2px 7px),
-        repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.06) 0 2px, transparent 2px 7px),
-        #1a1612;
-      border-right: 4px solid #3a332b;
-    }
-
-    .body {
-      padding: 28px clamp(20px, 4vw, 40px);
+        linear-gradient(90deg, transparent 49.7%, #e8d6a8 49.7% 50.3%, transparent 50.3%),
+        repeating-linear-gradient(
+          88deg,
+          transparent 0 9px,
+          rgba(0, 0, 0, 0.18) 9px 10px,
+          transparent 10px 23px,
+          rgba(255, 255, 255, 0.04) 23px 25px
+        ),
+        linear-gradient(160deg, #5a2e1d, var(--rosewood) 60%, #2e160d);
+      box-shadow: var(--shadow);
     }
 
     .eyebrow {
-      color: #b8ad9b;
+      color: #d9b98a;
     }
 
     .line {
       font-family: var(--font-display);
-      font-size: clamp(1.3rem, 3vw, 1.8rem);
-      font-weight: 700;
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      font-weight: 600;
       margin-top: 6px;
+      max-width: 24ch;
     }
 
     .links {
       display: flex;
       flex-wrap: wrap;
+      align-items: center;
       gap: 8px 20px;
       list-style: none;
       padding: 0;
       margin: 18px 0 0;
 
-      a {
+      a,
+      .tune {
         font-family: var(--font-mono);
         font-size: 0.85rem;
-        color: #ffb27f;
+        color: #f2c08f;
         text-underline-offset: 4px;
       }
+    }
+
+    .tune {
+      padding: 0;
+      border: 0;
+      background: none;
+      text-decoration: underline;
+      cursor: pointer;
     }
 
     .fine {
@@ -92,22 +100,11 @@ import { injectEmail } from '../../core/email';
       color: var(--muted);
       text-align: center;
     }
-
-    @media (max-width: 560px) {
-      .amp {
-        grid-template-columns: 1fr;
-      }
-
-      .grille {
-        height: 56px;
-        border-right: 0;
-        border-bottom: 4px solid #3a332b;
-      }
-    }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Footer {
+  protected readonly tuner = inject(TunerService);
   protected readonly site = SITE;
   protected readonly githubUrl = GITHUB_URL;
   protected readonly email = injectEmail();

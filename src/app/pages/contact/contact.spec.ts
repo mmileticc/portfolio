@@ -9,7 +9,7 @@ async function setup() {
   contact['form'].setValue({
     name: 'Ana',
     email: 'ana@example.com',
-    message: 'Hello, I liked the pedals!',
+    message: 'Hello, I liked the songbook!',
     _gotcha: '',
   });
   return contact;
