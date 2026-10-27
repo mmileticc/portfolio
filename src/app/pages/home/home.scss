@@ -1,30 +1,30 @@
 .hero {
   display: grid;
-  grid-template-columns: 1.15fr 1fr;
+  grid-template-columns: 1.1fr 1fr;
   align-items: center;
   gap: clamp(32px, 6vw, 72px);
-  padding-block: clamp(40px, 8vw, 96px) 24px;
+  padding-block: clamp(40px, 7vw, 88px) 40px;
 }
 
 h1 {
   margin-top: 14px;
-  font-size: clamp(2.8rem, 7.5vw, 5.6rem);
-  font-weight: 800;
+  font-size: clamp(2.8rem, 7.5vw, 5.4rem);
+  font-weight: 700;
 
   .line2 {
     display: block;
     color: var(--ink-soft);
-    font-weight: 600;
-    font-size: 0.62em;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 0.6em;
     margin-top: 0.2em;
   }
 
   em {
-    font-style: normal;
     color: var(--accent);
     background: linear-gradient(
-      transparent 62%,
-      color-mix(in srgb, var(--accent) 22%, transparent) 0
+      transparent 64%,
+      color-mix(in srgb, var(--accent) 20%, transparent) 0
     );
   }
 }
@@ -43,13 +43,55 @@ h1 {
   margin-top: 30px;
 }
 
-.cable {
-  margin-block: 30px;
+/* The guitar: soundhole, a practice notebook leaning on it, and notes in the margin. */
+.guitar {
+  position: relative;
+  padding-bottom: 210px;
+}
+
+.hole {
+  width: min(100%, 380px);
+  margin-left: auto;
+}
+
+.strum {
+  position: absolute;
+  top: -6px;
+  left: 4%;
+  font-size: 1.5rem;
+  transform: rotate(-8deg);
+}
+
+.log {
+  position: absolute;
+  left: 0;
+  right: 18%;
+  bottom: 0;
+}
+
+.tune {
+  position: absolute;
+  right: 0;
+  bottom: -38px;
+  padding: 2px 6px;
+  border: 0;
+  background: none;
+  font-size: 1.35rem;
+  cursor: pointer;
+  transform: rotate(-3deg);
+
+  &:hover {
+    text-decoration: underline wavy;
+  }
+}
+
+.divider {
+  margin-block: 48px;
 }
 
 .section-head {
   text-align: center;
-  margin-bottom: 36px;
+  margin-bottom: 40px;
 
   h2 {
     font-size: clamp(2rem, 5vw, 3.2rem);
@@ -62,36 +104,27 @@ h1 {
   }
 }
 
-/* A strip of pedalboard: rails behind the pedals. */
-.rails {
-  padding: 40px clamp(16px, 4vw, 40px) 46px;
-  border-radius: var(--radius-lg);
-  background:
-    repeating-linear-gradient(
-      180deg,
-      transparent 0 34px,
-      rgba(0, 0, 0, 0.22) 34px 40px,
-      transparent 40px 52px
-    ),
-    #2b2620;
-  box-shadow:
-    inset 0 2px 0 rgba(255, 255, 255, 0.06),
-    var(--shadow);
-}
-
-.pedals {
+.songs {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: clamp(16px, 3vw, 32px);
+  gap: clamp(16px, 3vw, 28px);
   list-style: none;
   margin: 0;
   padding: 0;
+
+  li {
+    --tilt: 0deg;
+  }
+
+  app-song {
+    height: 100%;
+  }
 }
 
 .more {
   display: block;
   width: fit-content;
-  margin: 26px auto 0;
+  margin: 30px auto 0;
   font-family: var(--font-mono);
   font-size: 0.9rem;
 }
@@ -99,10 +132,10 @@ h1 {
 .duo {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  gap: 28px;
   padding-bottom: 72px;
 
-  .card {
+  .paper {
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -132,8 +165,12 @@ h1 {
   }
 }
 
+.notes {
+  transform: rotate(-0.8deg);
+}
+
 .setlist {
-  transform: rotate(-0.6deg);
+  transform: rotate(0.6deg);
 }
 
 .meta {
@@ -146,16 +183,37 @@ h1 {
     grid-template-columns: 1fr;
   }
 
-  .amp {
-    max-width: 520px;
+  .guitar {
+    max-width: 480px;
   }
 
-  .pedals {
+  .songs {
     grid-template-columns: repeat(2, 1fr);
-    row-gap: 36px;
+    row-gap: 28px;
   }
 
   .duo {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .guitar {
+    padding-bottom: 0;
+  }
+
+  .log {
+    position: static;
+    margin-top: -40px;
+  }
+
+  .tune {
+    position: static;
+    display: block;
+    margin: 16px 0 0 auto;
+  }
+
+  .songs {
     grid-template-columns: 1fr;
   }
 }

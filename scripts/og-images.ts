@@ -1,5 +1,6 @@
 /**
- * Renders the 1200×630 share images in public/og/ (one per project plus a default).
+ * Renders the 1200×630 share images in public/og/ (one per project plus a default):
+ * a spruce guitar top with its soundhole, and the page title on a sheet of music paper.
  * Run after changing a project's name, tagline or colour: `npm run og`.
  */
 import { mkdirSync } from 'node:fs';
@@ -9,12 +10,15 @@ import { PROJECTS } from '../src/app/content/projects.ts';
 import { SITE } from '../src/app/site.config.ts';
 
 const OUT = join(import.meta.dirname, '..', 'public', 'og');
-// CSS variables do not exist in an SVG rendered on its own, so mirror the pedal colours here.
+// CSS variables do not exist in an SVG rendered on its own, so mirror the song colours here.
 const COLORS: Record<string, string> = {
-  'var(--pedal-red)': '#e0453a',
-  'var(--pedal-orange)': '#f08a24',
-  'var(--pedal-green)': '#2f9e5f',
-  'var(--pedal-blue)': '#3a72d0',
+  'var(--song-red)': '#b8452f',
+  'var(--song-amber)': '#c27a1e',
+  'var(--song-green)': '#3f7d4f',
+  'var(--song-blue)': '#36649c',
+  'var(--song-plum)': '#7a4b7a',
+  'var(--song-teal)': '#2f7c7c',
+  'var(--song-slate)': '#5a6472',
 };
 
 const escape = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -35,57 +39,47 @@ function wrap(text: string, max: number): string[] {
   return lines;
 }
 
-function pedal(
-  x: number,
-  y: number,
-  color: string,
-  ink: string,
-  name: string,
-  model: string,
-): string {
+/** The guitar top with rosette and strings, centred at (cx, cy). */
+function soundhole(cx: number, cy: number): string {
+  const strings = [0, 1, 2, 3, 4, 5]
+    .map((i) => {
+      const x = cx - 75 + i * 30;
+      const w = [4.4, 3.8, 3.2, 2.4, 1.9, 1.5][i];
+      return `<line x1="${x}" x2="${x}" y1="0" y2="630" stroke="${i < 3 ? '#b89f6a' : '#d6c7a3'}" stroke-width="${w}"/>`;
+    })
+    .join('');
   return `
-  <g transform="translate(${x} ${y}) rotate(-4 150 210)">
-    <rect x="0" y="16" width="300" height="420" rx="26" fill="#000" opacity="0.35"/>
-    <rect x="0" y="0" width="300" height="420" rx="26" fill="${color}"/>
-    <rect x="0" y="0" width="300" height="420" rx="26" fill="url(#shine)"/>
-    ${[70, 150, 230].map((cx) => `<circle cx="${cx}" cy="70" r="26" fill="#1b1916"/><rect x="${cx - 2}" y="48" width="4" height="18" rx="2" fill="#f4ecdf" transform="rotate(${cx - 120} ${cx} 70)"/>`).join('')}
-    <rect x="30" y="122" width="240" height="150" rx="14" fill="#fff" opacity="0.16"/>
-    <circle cx="150" cy="148" r="8" fill="#ff3b2f"/>
-    <text x="150" y="196" text-anchor="middle" font-family="Consolas, monospace" font-size="15" font-weight="700" letter-spacing="2" fill="${ink}" opacity="0.8">${escape(model.toUpperCase())}</text>
-    <text x="150" y="240" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-size="${name.length > 10 ? 26 : 36}" font-weight="900" fill="${ink}">${escape(name)}</text>
-    <circle cx="150" cy="350" r="42" fill="#c9c3b8" stroke="#3f3a34" stroke-width="6"/>
-  </g>`;
+    <circle cx="${cx}" cy="${cy}" r="205" fill="none" stroke="#4a2618" stroke-width="5"/>
+    <circle cx="${cx}" cy="${cy}" r="196" fill="none" stroke="#7a3b1f" stroke-width="2.5"/>
+    <circle cx="${cx}" cy="${cy}" r="182" fill="none" stroke="#4a2618" stroke-width="20"/>
+    <circle cx="${cx}" cy="${cy}" r="182" fill="none" stroke="#e8d6a8" stroke-width="20" stroke-dasharray="6 9"/>
+    <circle cx="${cx}" cy="${cy}" r="168" fill="none" stroke="#7a3b1f" stroke-width="2.5"/>
+    <circle cx="${cx}" cy="${cy}" r="160" fill="none" stroke="#4a2618" stroke-width="5"/>
+    <circle cx="${cx}" cy="${cy}" r="148" fill="#0c0705"/>
+    ${strings}`;
 }
 
-function card(opts: {
-  title: string;
-  subtitle: string;
-  eyebrow: string;
-  color: string;
-  ink: string;
-  model: string;
-  /** Name printed on the pedal; defaults to the last word of a long title. */
-  pedalName?: string;
-}): string {
-  const lines = wrap(opts.subtitle, 34).slice(0, 4);
+function card(opts: { title: string; subtitle: string; eyebrow: string; color: string }): string {
+  const lines = wrap(opts.subtitle, 30).slice(0, 4);
+  const grain = Array.from(
+    { length: 42 },
+    (_, i) =>
+      `<line x1="0" x2="1200" y1="${i * 15 + (i % 3) * 4}" y2="${i * 15 + 8}" stroke="#c99a5b" stroke-opacity="0.3"/>`,
+  ).join('');
   return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-  <defs>
-    <linearGradient id="shine" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#fff" stop-opacity="0.3"/>
-      <stop offset="0.45" stop-color="#fff" stop-opacity="0"/>
-    </linearGradient>
-    <pattern id="dots" width="12" height="12" patternUnits="userSpaceOnUse">
-      <circle cx="2" cy="2" r="1.4" fill="#f4ecdf" opacity="0.08"/>
-    </pattern>
-  </defs>
-  <rect width="1200" height="630" fill="#16130f"/>
-  <rect width="1200" height="630" fill="url(#dots)"/>
-  <rect x="0" y="0" width="1200" height="14" fill="${opts.color}"/>
-  <text x="80" y="130" font-family="Consolas, monospace" font-size="24" letter-spacing="4" fill="#968b7a">${escape(opts.eyebrow.toUpperCase())}</text>
-  <text x="80" y="230" font-family="Arial Black, Arial, sans-serif" font-size="${opts.title.length > 14 ? 62 : 92}" font-weight="900" fill="#f4ecdf">${escape(opts.title)}</text>
-  ${lines.map((l, i) => `<text x="80" y="${310 + i * 50}" font-family="Arial, sans-serif" font-size="38" fill="#c9bfae">${escape(l)}</text>`).join('')}
-  <text x="80" y="570" font-family="Consolas, monospace" font-size="24" fill="#ff7a45">${escape(SITE.url.replace('https://', ''))}</text>
-  ${pedal(820, 100, opts.color, opts.ink, opts.pedalName ?? (opts.title.length > 12 ? opts.title.split(' ').at(-1)! : opts.title), opts.model)}
+  <rect width="1200" height="630" fill="#e9cf9c"/>
+  ${grain}
+  ${soundhole(930, 315)}
+  <g transform="rotate(-1.5 360 315)">
+    <rect x="58" y="78" width="600" height="474" rx="8" fill="#5a3a1a" opacity="0.25"/>
+    <rect x="50" y="64" width="600" height="474" rx="8" fill="#fffaf0"/>
+    <rect x="50" y="64" width="14" height="474" fill="${opts.color}"/>
+    <text x="100" y="132" font-family="Consolas, monospace" font-size="20" letter-spacing="4" fill="#7c6650">${escape(opts.eyebrow.toUpperCase())}</text>
+    <text x="100" y="222" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="${opts.title.length > 14 ? 52 : 76}" fill="#2b1d14">${escape(opts.title)}</text>
+    ${lines.map((l, i) => `<text x="100" y="${292 + i * 46}" font-family="Georgia, serif" font-style="italic" font-size="34" fill="#55402f">${escape(l)}</text>`).join('')}
+    ${[0, 1, 2, 3, 4].map((i) => `<line x1="100" x2="610" y1="${470 + i * 9}" y2="${470 + i * 9}" stroke="#2b1d14" stroke-opacity="0.25"/>`).join('')}
+    <text x="100" y="528" font-family="Consolas, monospace" font-size="20" fill="#a8461f">${escape(SITE.url.replace('https://', ''))}</text>
+  </g>
 </svg>`;
 }
 
@@ -97,11 +91,8 @@ const jobs = [
     svg: card({
       title: SITE.name,
       subtitle: 'Software engineer from Belgrade. Android, Kotlin backends and the web.',
-      eyebrow: 'Portfolio',
-      color: COLORS['var(--pedal-red)'],
-      ink: '#1a0806',
-      model: 'Signal chain',
-      pedalName: SITE.shortName,
+      eyebrow: 'Portfolio · the songbook',
+      color: COLORS['var(--song-red)'],
     }),
   },
   ...PROJECTS.map((p) => ({
@@ -109,10 +100,8 @@ const jobs = [
     svg: card({
       title: p.name,
       subtitle: p.tagline,
-      eyebrow: `Project · ${SITE.name}`,
-      color: COLORS[p.color] ?? '#e0453a',
-      ink: p.ink,
-      model: p.model,
+      eyebrow: p.style,
+      color: COLORS[p.color] ?? COLORS['var(--song-red)'],
     }),
   })),
 ];

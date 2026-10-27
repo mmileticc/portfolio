@@ -6,7 +6,7 @@
   </header>
 
   <section class="intro">
-    <div class="bio card">
+    <div class="bio paper">
       <p>
         I'm Milinko, a software engineer from Belgrade. I finished my bachelor's in software
         engineering at the School of Electrical Engineering (ETF) and I'm now doing my master's
@@ -19,7 +19,8 @@
         sensible error messages, accessibility and fast loading.
       </p>
       <p>
-        Outside of code I play guitar and I'm learning the harmonica, which is how
+        Outside of code I play acoustic and classical guitar, and I'm learning the harmonica, which
+        is how
         <a routerLink="/projects/goth" class="link">GotH</a> and my
         <a [href]="githubUrl + '/Android-Guitar-Tuner'" target="_blank" rel="noopener" class="link"
           >guitar tuner</a
@@ -28,7 +29,7 @@
       </p>
     </div>
 
-    <aside class="facts card" aria-label="Fact sheet">
+    <aside class="facts paper" aria-label="Fact sheet">
       <p class="eyebrow">Fact sheet</p>
       <dl>
         <div>
@@ -45,7 +46,7 @@
         </div>
         <div>
           <dt>Plays</dt>
-          <dd>Guitar, harmonica</dd>
+          <dd>Acoustic &amp; classical guitar, harmonica</dd>
         </div>
         <div>
           <dt>Building</dt>
@@ -56,7 +57,7 @@
     </aside>
   </section>
 
-  <app-cable class="cable" />
+  <app-strings class="divider" />
 
   <section aria-labelledby="tracks-title">
     <p class="eyebrow">Track list</p>
@@ -88,15 +89,15 @@
     </ol>
   </section>
 
-  <app-cable class="cable" [flip]="true" />
+  <app-strings class="divider" />
 
-  <section aria-labelledby="tone-title">
-    <p class="eyebrow">Tone stack</p>
-    <h2 id="tone-title">What I work with</h2>
-    <ul class="tone">
-      @for (g of toneStack; track g.name) {
-        <li class="card">
-          <app-knob [value]="7" />
+  <section aria-labelledby="repertoire-title">
+    <p class="eyebrow">Repertoire</p>
+    <h2 id="repertoire-title">What I work with</h2>
+    <ul class="repertoire">
+      @for (g of repertoire; track g.name; let i = $index) {
+        <li class="paper">
+          <app-chord [shape]="i" />
           <div>
             <h3>{{ g.name }}</h3>
             <p>{{ g.items.join(' · ') }}</p>

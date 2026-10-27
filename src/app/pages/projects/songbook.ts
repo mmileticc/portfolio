@@ -6,11 +6,12 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { HIDDEN_REPOS, PROJECTS } from '../../content/projects';
+import { DEMOS, FEATURED, HIDDEN_REPOS } from '../../content/projects';
 import { GithubService } from '../../core/github.service';
 import { SeoService } from '../../core/seo.service';
 import { timeAgo } from '../../core/format';
-import { Pedal } from '../../ui/pedal/pedal';
+import { Song } from '../../ui/song/song';
+import { Strings } from '../../ui/strings/strings';
 import { GITHUB_URL } from '../../site.config';
 
 /** GitHub's own language colours for the ones that show up here. */
@@ -27,27 +28,30 @@ const LANGUAGE_COLORS: Record<string, string> = {
 };
 
 @Component({
-  selector: 'app-board',
-  imports: [Pedal],
-  templateUrl: './board.html',
-  styleUrl: './board.scss',
+  selector: 'app-songbook',
+  imports: [Song, Strings],
+  templateUrl: './songbook.html',
+  styleUrl: './songbook.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class Board {
+export default class Songbook {
   private readonly github = inject(GithubService);
 
-  protected readonly projects = PROJECTS;
+  protected readonly featured = FEATURED;
+  protected readonly demos = DEMOS;
+  /** Pages lying slightly askew on a music stand. */
+  protected readonly tilts = [-1.2, 0.8, -0.6, 1.2, -0.8, 0.6, -1];
   protected readonly githubUrl = GITHUB_URL;
   protected readonly ago = timeAgo;
   protected readonly language = signal<string | null>(null);
 
-  protected readonly gigBag = computed(() =>
+  protected readonly bSides = computed(() =>
     this.github.repos().filter((r) => !HIDDEN_REPOS.has(r.name)),
   );
 
   protected readonly languages = computed(() => {
     const counts = new Map<string, number>();
-    for (const r of this.gigBag()) {
+    for (const r of this.bSides()) {
       if (r.language) counts.set(r.language, (counts.get(r.language) ?? 0) + 1);
     }
     return [...counts.entries()]
@@ -57,7 +61,7 @@ export default class Board {
 
   protected readonly visible = computed(() => {
     const lang = this.language();
-    return lang ? this.gigBag().filter((r) => r.language === lang) : this.gigBag();
+    return lang ? this.bSides().filter((r) => r.language === lang) : this.bSides();
   });
 
   constructor() {
@@ -65,7 +69,7 @@ export default class Board {
       path: '/projects',
       title: 'Projects',
       description:
-        'Featured projects by Milinko Miletić (Movienee, Movienee Scrapers, FuelScan, GotH) and everything else from GitHub.',
+        'The songbook of Milinko Miletić: Movienee, Movienee Scrapers, FuelScan and GotH, plus demos and everything else from GitHub.',
     });
     afterNextRender(() => this.github.refresh());
   }

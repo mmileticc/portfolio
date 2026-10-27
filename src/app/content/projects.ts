@@ -14,23 +14,23 @@ export interface ProjectImage {
 export interface Project {
   slug: string;
   name: string;
-  /** The "pedal model" printed on the enclosure. */
-  model: string;
-  /** CSS colour of the enclosure. */
+  /** Featured songs get the full lead sheet; demos are shorter. */
+  tier: 'featured' | 'demo';
+  /** A playful "genre and key", printed under the title like on sheet music. */
+  style: string;
+  /** CSS colour of the song's ribbon and accents. */
   color: string;
-  /** Text colour that reads well on `color`. */
-  ink: string;
   tagline: string;
   summary: string;
   problem: string[];
-  /** Three knob labels shown on the pedal. */
-  knobs: [string, string, string];
-  /** The architecture as a signal chain, from input to output. */
+  /** Three main technologies, drawn as chord diagrams. */
+  chords: [string, string, string];
+  /** The architecture as a chord progression, from input to output. */
   flow: { label: string; detail: string }[];
   features: { title: string; text: string }[];
   stack: { group: string; items: string[] }[];
   links: ProjectLink[];
-  /** GitHub repositories that belong to this project (kept out of the gig bag). */
+  /** GitHub repositories that belong to this project (kept out of the B-sides). */
   repos: string[];
   images: ProjectImage[];
 }
@@ -41,9 +41,9 @@ export const PROJECTS: Project[] = [
   {
     slug: 'movienee',
     name: 'Movienee',
-    model: 'Cinema Overdrive',
-    color: 'var(--pedal-red)',
-    ink: '#1a0806',
+    tier: 'featured',
+    style: 'A cinema ballad in D',
+    color: 'var(--song-red)',
     tagline: 'Find a movie, see where it plays in Serbia, and plan a movie night with friends.',
     summary:
       'A movie discovery and social app with a native Android client, an Angular web app and a Kotlin/Ktor backend. One account, library and friend list are shared across all of them.',
@@ -51,7 +51,7 @@ export const PROJECTS: Project[] = [
       'There is no single place that tells you what is actually playing in Serbian cinemas, where, and when. Every chain has its own website, and none of them knows your taste or your friends.',
       'Movienee puts it together: the catalogue and ratings from TMDB, IMDb and Rotten Tomatoes, the real showtimes of seven cinema chains sorted by distance, and a social layer for watchlists, ratings, comments and joint "Movie Night" suggestions. You can also find a movie from a photo of a poster or by describing the mood you are in.',
     ],
-    knobs: ['Android', 'Ktor', 'Angular'],
+    chords: ['Android', 'Ktor', 'Angular'],
     flow: [
       { label: 'Cinema sites', detail: '7 chains scraped in parallel' },
       { label: 'Ktor backend', detail: 'Postgres, JWT, TTL caches, Gemini' },
@@ -130,9 +130,9 @@ export const PROJECTS: Project[] = [
   {
     slug: 'movienee-scrapers',
     name: 'Movienee Scrapers',
-    model: '7-Way Splitter',
-    color: 'var(--pedal-orange)',
-    ink: '#1f1004',
+    tier: 'featured',
+    style: 'A round for seven voices',
+    color: 'var(--song-amber)',
     tagline: 'Seven very different cinema websites in, one uniform data model out.',
     summary:
       'Kotlin scrapers that collect the current and upcoming programme of the major cinema chains in Serbia, including every showtime of the next seven days with a link to buy that exact screening.',
@@ -140,7 +140,7 @@ export const PROJECTS: Project[] = [
       'Cineplexx, CineStar, Cine Grand, MTS Dvorana, Arena, Roda and Tuckwood each publish their programme differently: server-rendered HTML, Nuxt pages with embedded JSON state, a React site backed by a private API, a WordPress theme.',
       'The scrapers read each one in the most reliable way available and produce one row per movie and location, with original titles for matching against TMDB and coordinates for sorting by distance. A real run on 15 October 2026 produced 775 rows and 3,185 showtimes at 20 locations.',
     ],
-    knobs: ['Kotlin', 'Jsoup', 'Async'],
+    chords: ['Kotlin', 'Jsoup', 'Async'],
     flow: [
       { label: 'CinemaScraper', detail: 'one implementation per chain' },
       { label: 'Concurrent engine', detail: 'coroutines on Dispatchers.IO' },
@@ -202,9 +202,9 @@ export const PROJECTS: Project[] = [
   {
     slug: 'fuelscan',
     name: 'FuelScan',
-    model: 'Receipt Compressor',
-    color: 'var(--pedal-green)',
-    ink: '#04170c',
+    tier: 'featured',
+    style: 'A road song in G',
+    color: 'var(--song-green)',
     tagline: 'Scan the QR code on a fuel receipt and get your fuel expenses tracked automatically.',
     summary:
       'An Angular app that reads the QR code from a Serbian fiscal receipt, pulls the station, litres, price and total from the Tax Administration portal and keeps a personal history with statistics. It runs without a backend server of its own.',
@@ -212,7 +212,7 @@ export const PROJECTS: Project[] = [
       'Every fiscal receipt in Serbia has a QR code that leads to its official copy, but the details you care about (fuel type, litres, price per litre) are behind a "Specification" button, and there is no public API.',
       'The first version used a Python/FastAPI backend that drove headless Chromium. FuelScan is now a standalone Angular app: the browser fetches and parses the receipt page itself, and a small Cloudflare Worker solves the CORS and session-cookie problem.',
     ],
-    knobs: ['Angular', 'Workers', 'Supabase'],
+    chords: ['Angular', 'Workers', 'Supabase'],
     flow: [
       { label: 'QR scan', detail: 'camera or image, html5-qrcode' },
       { label: 'Cloudflare Worker', detail: 'CORS + session cookie relay' },
@@ -265,9 +265,9 @@ export const PROJECTS: Project[] = [
   {
     slug: 'goth',
     name: 'GotH',
-    model: 'Harmonic Transposer',
-    color: 'var(--pedal-blue)',
-    ink: '#050f22',
+    tier: 'featured',
+    style: 'A duet for guitar and harmonica',
+    color: 'var(--song-blue)',
     tagline: 'Write a riff on the guitar fretboard, get the harmonica tab, and hear both.',
     summary:
       'GotH (Guitar to Harmonica) is a free browser tool for guitar players learning the diatonic harmonica: click notes on a fretboard and it writes the matching blow and draw holes, with notation and audio playback.',
@@ -275,7 +275,7 @@ export const PROJECTS: Project[] = [
       'Guitar tabs and harmonica tabs are two different notations. Adapting a blues or folk riff from one to the other means working out every note by hand.',
       'GotH came out of a personal need: as a guitar player learning the harmonica, I wanted to try riffs right away instead of spending hours with music theory manuals. It started as a vanilla JS page and has been rewritten in Vue 3 and TypeScript, with the mapping logic covered by unit tests.',
     ],
-    knobs: ['Vue', 'TS', 'Theory'],
+    chords: ['Vue', 'TS', 'Theory'],
     flow: [
       { label: 'Fretboard', detail: 'click a string and fret' },
       { label: 'Note system', detail: 'fret + tuning → pitch' },
@@ -328,13 +328,153 @@ export const PROJECTS: Project[] = [
       },
     ],
   },
+  {
+    slug: 'posetrack',
+    name: 'PoseTrack',
+    tier: 'demo',
+    style: 'A workout in 4/4',
+    color: 'var(--song-plum)',
+    tagline:
+      "The phone's camera counts your push-ups and pull-ups and tells you when your form slips.",
+    summary:
+      'An Android workout tracker that uses ML Kit Pose Detection to follow your movement in real time, count repetitions and keep a history of your training.',
+    problem: [
+      'Counting reps in your head is easy to get wrong, and a phone propped against the wall can see more than you can. PoseTrack turns it into a personal trainer: it finds 33 body landmarks in every frame, measures joint angles and counts a rep on each full Down → Up transition.',
+    ],
+    chords: ['Kotlin', 'ML Kit', 'CameraX'],
+    flow: [
+      { label: 'CameraX', detail: 'frames on a background executor' },
+      { label: 'ML Kit Pose', detail: '33 body landmarks' },
+      { label: 'Exercise analyzer', detail: 'joint angles, EMA smoothing' },
+      { label: 'Room', detail: 'sessions and history' },
+    ],
+    features: [
+      {
+        title: 'Automatic counting',
+        text: 'Push-ups and pull-ups are counted from the elbow angle and the Down → Up state changes.',
+      },
+      {
+        title: 'Form feedback',
+        text: 'Tells you when you are not fully in the frame or your form needs adjusting, and works with only the upper body visible.',
+      },
+      {
+        title: 'Steady tracking',
+        text: 'An exponential moving average filter removes the jitter between frames.',
+      },
+      {
+        title: 'Workout diary',
+        text: 'Pause, review and save sessions, or log reps by hand when the camera is not used.',
+      },
+    ],
+    stack: [
+      { group: 'Android', items: ['Kotlin', 'Jetpack Compose', 'Material 3', 'Hilt', 'Room'] },
+      { group: 'Vision', items: ['ML Kit Pose Detection', 'CameraX'] },
+    ],
+    links: [{ label: 'Repository', url: `${GH}/MLKit-Pose-Exercise-Counter`, kind: 'repo' }],
+    repos: ['MLKit-Pose-Exercise-Counter'],
+    images: [],
+  },
+  {
+    slug: 'guitar-tuner',
+    name: 'Guitar Tuner',
+    tier: 'demo',
+    style: 'A tuning study in E',
+    color: 'var(--song-teal)',
+    tagline: 'A clean, ad-free guitar tuner for Android that just works.',
+    summary:
+      'A lightweight tuner built with Jetpack Compose: real-time pitch analysis with cent deviation, and no ads, tracking or subscriptions.',
+    problem: [
+      'Most tuners on the Play Store are cluttered with ads and subscriptions. I wanted a straightforward tool for tuning my own guitar, so I built one.',
+    ],
+    chords: ['Kotlin', 'Compose', 'Audio'],
+    flow: [
+      { label: 'Microphone', detail: 'started and stopped with the app lifecycle' },
+      { label: 'Pitch analysis', detail: 'real-time, in a ViewModel' },
+      { label: 'Cents', detail: 'distance from the nearest note' },
+      { label: 'Compose UI', detail: 'Material 3' },
+    ],
+    features: [
+      {
+        title: 'Precise',
+        text: 'Shows the note and how many cents sharp or flat the string is.',
+      },
+      {
+        title: 'Graceful permissions',
+        text: "Handles a denied microphone, including 'Don't ask again', and guides you to the system settings.",
+      },
+      {
+        title: 'Battery and privacy',
+        text: 'The microphone runs only while the app is in front, following onResume and onPause.',
+      },
+      {
+        title: 'No ads, no tracking',
+        text: 'Open source and free of everything that is not tuning.',
+      },
+    ],
+    stack: [
+      { group: 'Android', items: ['Kotlin', 'Jetpack Compose', 'Material 3', 'MVVM'] },
+      { group: 'Build', items: ['Gradle version catalog'] },
+    ],
+    links: [{ label: 'Repository', url: `${GH}/Android-Guitar-Tuner`, kind: 'repo' }],
+    repos: ['Android-Guitar-Tuner'],
+    images: [],
+  },
+  {
+    slug: 'codegrill',
+    name: 'CodeGrill',
+    tier: 'demo',
+    style: 'A roast in three levels',
+    color: 'var(--song-slate)',
+    tagline:
+      'An IntelliJ plugin that roasts your code with AI and turns the useful hints into tasks.',
+    summary:
+      'Select some Kotlin or Java, ask for a roast, and CodeGrill writes short ROAST, HELP and NICE comments above it. HELP comments become TODOs you can track in a tool window.',
+    problem: [
+      'Code review feedback is easy to read and forget. CodeGrill makes it a bit more fun and a lot harder to ignore: the hints land in the code itself, and the actionable ones turn into tasks with a progress bar.',
+    ],
+    chords: ['Kotlin', 'IntelliJ', 'OpenAI'],
+    flow: [
+      { label: 'Selected code', detail: 'Roast my code, Ctrl+Alt+Q' },
+      { label: 'OpenAI', detail: 'level and language from settings' },
+      { label: 'Comments', detail: 'ROAST, HELP, NICE' },
+      { label: 'Code Tasks', detail: 'HELP → TODO → DONE' },
+    ],
+    features: [
+      {
+        title: 'Adjustable heat',
+        text: 'Low, Medium or High roast, in English or Serbian.',
+      },
+      {
+        title: 'From hint to task',
+        text: 'Gutter icons turn a HELP comment into a TODO and a TODO into DONE.',
+      },
+      {
+        title: 'Progress at a glance',
+        text: 'The Code Tasks tool window scans the project, filters by state and jumps to each task.',
+      },
+      {
+        title: 'Clean up',
+        text: 'Remove all generated comments, or only the NICE or ROAST ones.',
+      },
+    ],
+    stack: [
+      { group: 'Plugin', items: ['Kotlin', 'IntelliJ Platform 2024.2+', 'JDK 21', 'Gradle'] },
+      { group: 'AI', items: ['OpenAI API'] },
+    ],
+    links: [{ label: 'Repository', url: `${GH}/Code-Grill`, kind: 'repo' }],
+    repos: ['Code-Grill'],
+    images: [],
+  },
 ];
+
+export const FEATURED = PROJECTS.filter((p) => p.tier === 'featured');
+export const DEMOS = PROJECTS.filter((p) => p.tier === 'demo');
 
 export function findProject(slug: string | null | undefined): Project | undefined {
   return PROJECTS.find((p) => p.slug === slug);
 }
 
-/** Repositories that are not shown in the gig bag: featured ones and housekeeping repos. */
+/** Repositories that are not shown in the B-sides: songs and housekeeping repos. */
 export const HIDDEN_REPOS = new Set([
   ...PROJECTS.flatMap((p) => p.repos),
   'mmileticc',

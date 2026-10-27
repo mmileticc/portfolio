@@ -1,0 +1,120 @@
+<div class="page container">
+  <header class="page-head">
+    <p class="eyebrow">The songbook</p>
+    <h1>Projects</h1>
+    <p>
+      Every project is a song. The four I'm proudest of have full lead sheets, the demos are
+      shorter, and the B-sides are everything else on my GitHub, straight from the API.
+    </p>
+  </header>
+
+  @defer (hydrate on viewport) {
+    <section aria-labelledby="songs-title">
+      <h2 id="songs-title" class="visually-hidden">Songs</h2>
+      <ul class="songs">
+        @for (p of featured; track p.slug; let i = $index) {
+          <li [style.--i]="i" [style.--tilt]="tilts[i] + 'deg'">
+            <app-song [project]="p" [number]="i + 1" />
+            <p class="tagline">{{ p.tagline }}</p>
+          </li>
+        }
+      </ul>
+    </section>
+  }
+
+  @defer (hydrate on hover) {
+    <app-strings class="divider" />
+  }
+
+  @defer (hydrate on viewport) {
+    <section aria-labelledby="demos-title">
+      <div class="section-head">
+        <p class="eyebrow">Demos</p>
+        <h2 id="demos-title">Shorter songs</h2>
+        <p>Smaller projects, recorded in fewer takes, but each with its own sheet.</p>
+      </div>
+      <ul class="songs demos">
+        @for (p of demos; track p.slug; let i = $index) {
+          <li [style.--i]="i" [style.--tilt]="tilts[i + 4] + 'deg'">
+            <app-song [project]="p" [number]="featured.length + i + 1" size="sm" />
+            <p class="tagline">{{ p.tagline }}</p>
+          </li>
+        }
+      </ul>
+    </section>
+  }
+
+  @defer (hydrate on hover) {
+    <app-strings class="divider" />
+  }
+
+  @defer (hydrate on viewport) {
+    <section class="b-sides" aria-labelledby="b-sides-title">
+      <div class="bag-head">
+        <div>
+          <p class="eyebrow">B-sides</p>
+          <h2 id="b-sides-title">Everything else</h2>
+        </div>
+        <a [href]="githubUrl" target="_blank" rel="noopener" class="link mono"
+          >github.com/mmileticc ↗</a
+        >
+      </div>
+
+      @if (languages().length > 1) {
+        <div class="filters" role="group" aria-label="Filter by language">
+          <button
+            type="button"
+            class="chip"
+            [class.on]="language() === null"
+            [attr.aria-pressed]="language() === null"
+            (click)="language.set(null)"
+          >
+            All <span class="count">{{ bSides().length }}</span>
+          </button>
+          @for (l of languages(); track l.name) {
+            <button
+              type="button"
+              class="chip"
+              [class.on]="language() === l.name"
+              [attr.aria-pressed]="language() === l.name"
+              (click)="toggle(l.name)"
+            >
+              <span class="dot" [style.background]="color(l.name)"></span>
+              {{ l.name }} <span class="count">{{ l.count }}</span>
+            </button>
+          }
+        </div>
+      }
+
+      @if (visible().length) {
+        <ul class="repos">
+          @for (r of visible(); track r.name) {
+            <li class="repo">
+              <a [href]="r.url" target="_blank" rel="noopener">
+                <span class="name">{{ r.name }}</span>
+                <span class="desc">{{ r.description || 'No description yet.' }}</span>
+                <span class="meta mono">
+                  @if (r.language) {
+                    <span
+                      ><span class="dot" [style.background]="color(r.language)"></span
+                      >{{ r.language }}</span
+                    >
+                  }
+                  @if (r.stars) {
+                    <span>★ {{ r.stars }}</span>
+                  }
+                  <span>updated {{ ago(r.pushedAt) }}</span>
+                </span>
+              </a>
+              @if (r.homepage) {
+                <a class="demo mono" [href]="r.homepage" target="_blank" rel="noopener">Live ↗</a>
+              }
+            </li>
+          }
+        </ul>
+      } @else {
+        <p class="empty">No B-sides right now. GitHub might be taking a break.</p>
+      }
+    </section>
+  }
+</div>
