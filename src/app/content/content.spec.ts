@@ -1,6 +1,6 @@
 import { formatDate, timeAgo } from '../core/format';
 import { toCommit } from './github-api';
-import { HIDDEN_REPOS, PROJECTS, findProject } from './projects';
+import { DEMOS, FEATURED, HIDDEN_REPOS, PROJECTS, findProject } from './projects';
 
 describe('projects', () => {
   it('have unique, URL-safe slugs', () => {
@@ -11,7 +11,7 @@ describe('projects', () => {
 
   it('have everything a case study page shows', () => {
     for (const p of PROJECTS) {
-      expect(p.knobs).toHaveLength(3);
+      expect(p.chords).toHaveLength(3);
       expect(p.flow.length).toBeGreaterThanOrEqual(2);
       expect(p.features.length).toBeGreaterThan(0);
       expect(p.links.some((l) => l.kind === 'repo')).toBe(true);
@@ -19,10 +19,21 @@ describe('projects', () => {
     }
   });
 
-  it('keep featured repositories out of the gig bag', () => {
+  it('keep song repositories out of the B-sides', () => {
     expect(HIDDEN_REPOS.has('movienee-web')).toBe(true);
     expect(HIDDEN_REPOS.has('GotH')).toBe(true);
-    expect(HIDDEN_REPOS.has('Code-Grill')).toBe(false);
+    expect(HIDDEN_REPOS.has('Code-Grill')).toBe(true);
+    expect(HIDDEN_REPOS.has('OS1-project')).toBe(false);
+  });
+
+  it('split into four featured songs and the demos', () => {
+    expect(FEATURED.map((p) => p.slug)).toEqual([
+      'movienee',
+      'movienee-scrapers',
+      'fuelscan',
+      'goth',
+    ]);
+    expect(DEMOS.length + FEATURED.length).toBe(PROJECTS.length);
   });
 
   it('are found by slug', () => {

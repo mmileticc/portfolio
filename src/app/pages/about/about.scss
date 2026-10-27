@@ -43,8 +43,8 @@
   }
 }
 
-.cable {
-  margin-block: 40px;
+.divider {
+  margin-block: 48px;
 }
 
 h2 {
@@ -126,7 +126,7 @@ h3 {
   }
 }
 
-.tone {
+.repertoire {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
   gap: 16px;
@@ -138,12 +138,9 @@ h3 {
     display: flex;
     align-items: center;
     gap: 18px;
-    padding: 20px 22px;
-    --knob-size: 46px;
-
-    &:hover {
-      --knob-turn: 40deg;
-    }
+    padding: 18px 22px;
+    --chord-size: 44px;
+    --chord-label-display: none;
   }
 
   h3 {

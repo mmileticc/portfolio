@@ -2,7 +2,7 @@
  * Generates the content the app imports at build time:
  *   src/app/content/generated/posts.ts   blog posts from content/blog/*.md
  *   src/app/content/generated/github.ts  repositories and latest commits
- *   public/sitemap.xml, public/robots.txt
+ *   public/sitemap.xml, public/robots.txt, public/rss.xml
  *
  * Runs with Node's built-in TypeScript support: `node scripts/build-content.ts`.
  * Set GITHUB_TOKEN to raise the API rate limit (the deploy workflow does).
@@ -151,3 +151,35 @@ writeFileSync(
   `User-agent: *\nAllow: /\n\nSitemap: ${SITE.url}/sitemap.xml\n`,
 );
 console.log(`✔ sitemap with ${routes.length} routes`);
+
+/* ───────── RSS ───────── */
+
+const xml = (text: string) =>
+  text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+writeFileSync(
+  join(PUBLIC_DIR, 'rss.xml'),
+  `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>${xml(SITE.name)} · Setlist</title>
+    <link>${SITE.url}/blog/</link>
+    <atom:link href="${SITE.url}/rss.xml" rel="self" type="application/rss+xml" />
+    <description>Notes on Kotlin, Android, Angular and the things I build.</description>
+    <language>en</language>
+${posts
+  .map(
+    (p) => `    <item>
+      <title>${xml(p.title)}</title>
+      <link>${SITE.url}/blog/${p.slug}/</link>
+      <guid>${SITE.url}/blog/${p.slug}/</guid>
+      <pubDate>${new Date(`${p.date}T12:00:00Z`).toUTCString()}</pubDate>
+      <description>${xml(p.summary)}</description>
+    </item>`,
+  )
+  .join('\n')}
+  </channel>
+</rss>
+`,
+);
+console.log(`✔ rss with ${posts.length} item(s)`);

@@ -1,7 +1,8 @@
 # milinko. (portfolio)
 
-My personal site, built as a guitar pedalboard: every featured project is a pedal with its own
-manual, the theme switch is a footswitch, and the amp on the home page shows my latest commits.
+My personal site, built as a songbook on a spruce guitar top: every project is a song with its own
+lead sheet, the section dividers are strings you can strum (with real plucked-string sound, off by
+default), the theme switch is a tuning peg, and there is a small chromatic tuner hidden in the site.
 
 **Live:** https://mmileticc.github.io/portfolio/
 
@@ -27,7 +28,7 @@ npm run build      # prerendered site in dist/portfolio/browser
 | What                                     | Where                                                                                          |
 | ---------------------------------------- | ---------------------------------------------------------------------------------------------- |
 | Name, email, LinkedIn, Formspree form ID | `src/app/site.config.ts`                                                                       |
-| Featured projects (the pedals)           | `src/app/content/projects.ts`                                                                  |
+| Projects (songs and demos)               | `src/app/content/projects.ts`                                                                  |
 | Blog posts                               | `content/blog/*.md` (front matter: `title`, `date`, `summary`, `tags`, optional `draft: true`) |
 | Project screenshots                      | `public/images/projects/<slug>/`                                                               |
 | Share images                             | `public/og/`, regenerate with `npm run og`                                                     |
@@ -50,3 +51,10 @@ The site is served from `/portfolio/` (`baseHref` in the production build config
 One-time setup in the repository: **Settings → Pages → Source: GitHub Actions**.
 After the build, `scripts/postbuild.ts` copies the prerendered `/404` page to `404.html`, which
 GitHub Pages serves for unknown URLs.
+
+## Branches
+
+- `main` is what is live. Every push to it deploys.
+- `develop` collects the next version. CI (`ci.yml`) lints, tests and builds it without deploying.
+- Larger features can go on `feature/<name>` branches off `develop`.
+- When a version is ready, open a pull request from `develop` to `main` and merge it to release.

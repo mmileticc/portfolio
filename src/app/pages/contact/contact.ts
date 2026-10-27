@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, afterNextRender, inject, signal } f
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SeoService } from '../../core/seo.service';
 import { injectEmail } from '../../core/email';
-import { Led } from '../../ui/led/led';
 import { GITHUB_URL, SITE } from '../../site.config';
 
 type SendState = 'idle' | 'sending' | 'sent' | 'error';
@@ -12,7 +11,7 @@ export const MIN_FILL_MS = 3000;
 
 @Component({
   selector: 'app-contact',
-  imports: [ReactiveFormsModule, Led],
+  imports: [ReactiveFormsModule],
   templateUrl: './contact.html',
   styleUrl: './contact.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

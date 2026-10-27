@@ -20,9 +20,9 @@
   gap: 10px;
   margin-right: auto;
   font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 1.35rem;
-  letter-spacing: -0.03em;
+  font-weight: 700;
+  font-size: 1.45rem;
+  letter-spacing: -0.02em;
   text-decoration: none;
 
   svg {
@@ -32,7 +32,7 @@
   }
 
   &:hover svg {
-    transform: rotate(-12deg) translateY(-2px);
+    transform: rotate(-20deg);
   }
 
   .dot {
@@ -76,6 +76,12 @@
       background: var(--accent);
     }
   }
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .menu-toggle {
@@ -170,7 +176,7 @@
       font-size: 1rem;
     }
 
-    app-footswitch {
+    .controls {
       align-self: flex-start;
     }
   }

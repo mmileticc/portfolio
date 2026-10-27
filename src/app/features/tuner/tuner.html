@@ -1,0 +1,91 @@
+<dialog #dialog class="tuner paper" aria-labelledby="tuner-title" (cancel)="close()">
+  <header>
+    <div>
+      <p class="eyebrow">Hidden track</p>
+      <h2 id="tuner-title">Tune up</h2>
+    </div>
+    <button type="button" class="x" (click)="close()" aria-label="Close the tuner">×</button>
+  </header>
+
+  @switch (status()) {
+    @case ('listening') {
+      <div class="meter" [class.good]="inTune()" role="status" aria-live="polite">
+        <svg viewBox="0 0 200 110" aria-hidden="true">
+          <path d="M20 100 A 80 80 0 0 1 180 100" class="arc" />
+          @for (t of [-40, -20, 0, 20, 40]; track t) {
+            <line
+              x1="100"
+              y1="22"
+              x2="100"
+              y2="32"
+              class="tick"
+              [attr.transform]="'rotate(' + t * 0.9 + ' 100 100)'"
+            />
+          }
+          <line
+            x1="100"
+            y1="100"
+            x2="100"
+            y2="30"
+            class="needle"
+            [style.transform]="'rotate(' + needle() + 'deg)'"
+          />
+          <circle cx="100" cy="100" r="5" class="hub" />
+        </svg>
+        @if (reading(); as r) {
+          <p class="note">
+            {{ r.name }}<sub>{{ r.octave }}</sub>
+          </p>
+          <p class="cents mono">
+            {{ r.cents > 0 ? '+' : '' }}{{ r.cents }} cents · {{ r.hz.toFixed(1) }} Hz
+          </p>
+          <p class="hint hand">
+            {{
+              inTune() ? 'in tune ✓' : r.cents < 0 ? 'a bit flat, tighten' : 'a bit sharp, loosen'
+            }}
+          </p>
+        } @else {
+          <p class="note muted">–</p>
+          <p class="hint hand">play a string…</p>
+        }
+      </div>
+    }
+    @case ('denied') {
+      <p class="msg">
+        The tuner needs the microphone. Allow it in your browser's site settings and try again.
+      </p>
+      <button type="button" class="btn" (click)="start()">Try again</button>
+    }
+    @case ('unsupported') {
+      <p class="msg">
+        This browser can't listen to the microphone. The reference notes below still work.
+      </p>
+    }
+    @default {
+      <p class="msg">
+        A small chromatic tuner, in honour of my
+        <a
+          class="link"
+          href="https://github.com/mmileticc/Android-Guitar-Tuner"
+          target="_blank"
+          rel="noopener"
+          >Android tuner</a
+        >. It listens only after you press the button, and nothing leaves your device.
+      </p>
+      <button type="button" class="btn" [disabled]="status() === 'starting'" (click)="start()">
+        {{ status() === 'starting' ? 'Waiting for the mic…' : 'Start listening' }}
+      </button>
+    }
+  }
+
+  <div class="refs">
+    <p class="eyebrow">Reference notes</p>
+    <div class="ref-row">
+      @for (s of strings; track $index) {
+        <button type="button" class="ref mono" (click)="playReference(s.hz)">
+          {{ s.name }}<sub>{{ s.octave }}</sub>
+        </button>
+      }
+    </div>
+  </div>
+</dialog>

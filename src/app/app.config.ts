@@ -5,7 +5,11 @@ import {
   withInMemoryScrolling,
   withViewTransitions,
 } from '@angular/router';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import {
+  provideClientHydration,
+  withEventReplay,
+  withIncrementalHydration,
+} from '@angular/platform-browser';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -17,6 +21,6 @@ export const appConfig: ApplicationConfig = {
       withInMemoryScrolling({ scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled' }),
       withViewTransitions({ skipInitialTransition: true }),
     ),
-    provideClientHydration(withEventReplay()),
+    provideClientHydration(withEventReplay(), withIncrementalHydration()),
   ],
 };

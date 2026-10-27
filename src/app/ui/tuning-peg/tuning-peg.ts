@@ -1,58 +1,68 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ThemeService } from '../../core/theme.service';
-import { Led } from '../led/led';
 
-/** Theme toggle styled as a stomp switch. Engaged (LED on) means dark mode. */
+/** Theme toggle drawn as a guitar tuning peg that turns half a revolution. */
 @Component({
-  selector: 'app-footswitch',
-  imports: [Led],
+  selector: 'app-tuning-peg',
   template: `
     <button
       type="button"
-      class="switch"
+      class="peg-btn"
       role="switch"
       [attr.aria-checked]="theme.isDark()"
       [attr.title]="theme.isDark() ? 'Switch to light mode' : 'Switch to dark mode'"
       (click)="theme.toggle()"
     >
-      <app-led [on]="theme.isDark()" color="#ffb02e" />
-      <span class="stomp" aria-hidden="true"></span>
+      <svg viewBox="0 0 40 24" aria-hidden="true" [class.turned]="theme.isDark()">
+        <rect x="0" y="9" width="14" height="6" rx="2" class="shaft" />
+        <circle cx="14" cy="12" r="5" class="post" />
+        <path d="M18 12 C 18 3, 38 2, 38 12 C 38 22, 18 21, 18 12 Z" class="key" />
+      </svg>
       <span class="text mono">{{ theme.isDark() ? 'DARK' : 'LIGHT' }}</span>
       <span class="visually-hidden">Dark mode</span>
     </button>
   `,
   styles: `
-    .switch {
+    .peg-btn {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 6px 12px 6px 10px;
+      gap: 8px;
+      padding: 6px 12px 6px 8px;
       border-radius: 999px;
       border: 1px solid var(--line-strong);
       background: var(--surface);
       color: var(--ink);
       cursor: pointer;
-      --led-size: 8px;
     }
 
-    .stomp {
-      width: 22px;
+    svg {
+      width: 34px;
       height: 22px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 35% 30%, #f6f2ea 0%, #a8a196 60%, #6e685f 100%);
-      box-shadow:
-        0 3px 0 #4a453f,
-        inset 0 -2px 3px rgba(0, 0, 0, 0.25);
-      transition:
-        transform 0.08s ease,
-        box-shadow 0.08s ease;
+      transition: transform 0.6s var(--ease-spring);
+      transform-origin: 14px 12px;
     }
 
-    .switch:active .stomp {
-      transform: translateY(3px);
-      box-shadow:
-        0 0 0 #4a453f,
-        inset 0 -1px 2px rgba(0, 0, 0, 0.25);
+    svg.turned {
+      transform: rotateX(180deg) rotate(25deg);
+    }
+
+    .shaft {
+      fill: #b9a77f;
+    }
+
+    .post {
+      fill: #d8c79f;
+      stroke: #7a6a48;
+      stroke-width: 1.5;
+    }
+
+    .key {
+      fill: var(--ink);
+      opacity: 0.85;
+    }
+
+    .peg-btn:hover svg:not(.turned) {
+      transform: rotate(-20deg);
     }
 
     .text {
@@ -64,6 +74,6 @@ import { Led } from '../led/led';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Footswitch {
+export class TuningPeg {
   protected readonly theme = inject(ThemeService);
 }
