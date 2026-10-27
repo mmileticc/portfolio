@@ -10,7 +10,6 @@ import { TunerService } from '../../features/tuner/tuner.service';
   template: `
     <footer class="container">
       <div class="back">
-        <p class="eyebrow">Encore</p>
         <p class="line">That's the set. Thanks for listening.</p>
         <ul class="links">
           <li><a [href]="githubUrl" target="_blank" rel="noopener">GitHub</a></li>

@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Project } from '../../content/projects';
-import { SITE } from '../../site.config';
 import { Chord } from '../chord/chord';
 
 /** A project as a page from a songbook: title, style, and its main technologies as chords. */
@@ -20,7 +19,7 @@ import { Chord } from '../chord/chord';
         <ng-container [ngTemplateOutlet]="page" />
         <span class="play hand" aria-hidden="true">play it →</span>
         <span class="visually-hidden">
-          Open the lead sheet. Built with {{ project().chords.join(', ') }}.
+          Open the case study. Built with {{ project().chords.join(', ') }}.
         </span>
       </a>
     } @else {
@@ -35,7 +34,6 @@ import { Chord } from '../chord/chord';
 
       <span class="title">{{ project().name }}</span>
       <span class="style">{{ project().style }}</span>
-      <span class="credit mono">words &amp; music by {{ author }}</span>
 
       <span class="chords">
         @for (c of project().chords; track c; let i = $index) {
@@ -56,6 +54,4 @@ export class Song {
   readonly size = input<'lg' | 'sm'>('lg');
   /** Off when the card is shown on its own lead sheet, where a link would point to itself. */
   readonly link = input(true);
-
-  protected readonly author = SITE.name;
 }

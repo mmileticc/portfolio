@@ -16,8 +16,8 @@ was a guitar pedalboard, with every project as an effects pedal. It looked great
 actually used a pedal, so it wasn't really me.
 
 A songbook is. Every project is now a song with its own page: a title, a style, and its main
-technologies written as chord boxes. Open one and you get the lead sheet: the verse (the problem),
-the progression (how it's built), the chorus (what it does) and the instrumentation (the stack).
+technologies written as chord boxes. Open one and you get a plain write-up: the problem, how it's
+built, what it does and the stack.
 
 A few details I enjoyed building:
 

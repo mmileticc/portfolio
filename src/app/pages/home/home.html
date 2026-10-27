@@ -1,6 +1,6 @@
 <section class="hero container">
   <div class="intro">
-    <p class="eyebrow">Track 1 · Belgrade, Serbia</p>
+    <p class="eyebrow">Software engineer · Belgrade, Serbia</p>
     <h1>
       Hi, I'm Milinko.
       <span class="line2">I build things <em>end to end</em>.</span>
@@ -11,7 +11,7 @@
       frontends. When the build is running, I reach for my acoustic guitar.
     </p>
     <div class="ctas">
-      <a routerLink="/projects" class="btn">Open the songbook →</a>
+      <a routerLink="/projects" class="btn">See my projects →</a>
       <a routerLink="/contact" class="btn btn--ghost">Get in touch</a>
     </div>
   </div>
@@ -37,8 +37,8 @@
   <section class="songbook container" aria-labelledby="songbook-title">
     <div class="section-head">
       <p class="eyebrow">The songbook</p>
-      <h2 id="songbook-title">Four songs I'm proud of</h2>
-      <p>Every project is a song with its own lead sheet. Pick one to read how it's played.</p>
+      <h2 id="songbook-title">Four projects I'm proud of</h2>
+      <p>Each one has a write-up: the problem, how it's built and what it does.</p>
     </div>
 
     <ul class="songs">
@@ -49,7 +49,7 @@
       }
     </ul>
 
-    <a routerLink="/projects" class="link more">The whole songbook, demos and B-sides →</a>
+    <a routerLink="/projects" class="link more">All projects, smaller demos and the rest of my GitHub →</a>
   </section>
 }
 
@@ -66,12 +66,12 @@
         Systems courses at ETF taught me the low level: an operating system kernel for RISC-V and a
         compiler for MicroJava. These days I mostly ship Kotlin, Android and Angular.
       </p>
-      <a routerLink="/about" class="link">Read the liner notes →</a>
+      <a routerLink="/about" class="link">More about me →</a>
     </article>
 
     @if (latestPost) {
       <article class="paper setlist">
-        <p class="eyebrow">Latest from the setlist</p>
+        <p class="eyebrow">From the blog</p>
         <h2>
           <a [routerLink]="['/blog', latestPost.slug]">{{ latestPost.title }}</a>
         </h2>
