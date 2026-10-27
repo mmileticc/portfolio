@@ -3,14 +3,14 @@
     <p class="eyebrow">The songbook</p>
     <h1>Projects</h1>
     <p>
-      Every project is a song. The four I'm proudest of have full lead sheets, the demos are
-      shorter, and the B-sides are everything else on my GitHub, straight from the API.
+      The four projects I'm proudest of, each with a full write-up, then smaller demos and
+      everything else on my GitHub, straight from the API.
     </p>
   </header>
 
   @defer (hydrate on viewport) {
     <section aria-labelledby="songs-title">
-      <h2 id="songs-title" class="visually-hidden">Songs</h2>
+      <h2 id="songs-title" class="visually-hidden">Featured projects</h2>
       <ul class="songs">
         @for (p of featured; track p.slug; let i = $index) {
           <li [style.--i]="i" [style.--tilt]="tilts[i] + 'deg'">
@@ -30,8 +30,8 @@
     <section aria-labelledby="demos-title">
       <div class="section-head">
         <p class="eyebrow">Demos</p>
-        <h2 id="demos-title">Shorter songs</h2>
-        <p>Smaller projects, recorded in fewer takes, but each with its own sheet.</p>
+        <h2 id="demos-title">Smaller projects</h2>
+        <p>Quicker builds, each with a short write-up.</p>
       </div>
       <ul class="songs demos">
         @for (p of demos; track p.slug; let i = $index) {
@@ -52,8 +52,8 @@
     <section class="b-sides" aria-labelledby="b-sides-title">
       <div class="bag-head">
         <div>
-          <p class="eyebrow">B-sides</p>
-          <h2 id="b-sides-title">Everything else</h2>
+          <p class="eyebrow">From GitHub</p>
+          <h2 id="b-sides-title">Other repositories</h2>
         </div>
         <a [href]="githubUrl" target="_blank" rel="noopener" class="link mono"
           >github.com/mmileticc ↗</a
@@ -113,7 +113,7 @@
           }
         </ul>
       } @else {
-        <p class="empty">No B-sides right now. GitHub might be taking a break.</p>
+        <p class="empty">Nothing to show right now. GitHub might be taking a break.</p>
       }
     </section>
   }

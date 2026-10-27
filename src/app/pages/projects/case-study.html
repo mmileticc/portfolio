@@ -3,10 +3,8 @@
     <header class="hero container">
       <app-song [project]="p" [number]="number()" [link]="false" class="hero-song" />
       <div class="hero-text">
-        <a routerLink="/projects" class="back mono">← The songbook</a>
-        <p class="eyebrow">
-          Lead sheet · No. {{ number() }}{{ p.tier === 'demo' ? ' · Demo' : '' }}
-        </p>
+        <a routerLink="/projects" class="back mono">← All projects</a>
+        <p class="eyebrow">{{ p.tier === 'demo' ? 'Demo' : 'Case study' }}</p>
         <h1>{{ p.name }}</h1>
         <p class="style">{{ p.style }}</p>
         <p class="tagline">{{ p.tagline }}</p>
@@ -32,7 +30,7 @@
       <div class="sheet paper">
         <section aria-labelledby="problem">
           <h2 id="problem">
-            <span class="mark">A</span> Verse <span class="sub">the problem</span>
+            <span class="mark">A</span> The problem
           </h2>
           <div class="prose">
             @for (para of p.problem; track $index) {
@@ -43,7 +41,7 @@
 
         <section aria-labelledby="flow">
           <h2 id="flow">
-            <span class="mark">B</span> Progression <span class="sub">how it's built</span>
+            <span class="mark">B</span> How it's built
           </h2>
           <ol class="progression" [style.--stages]="p.flow.length">
             @for (stage of p.flow; track stage.label; let i = $index) {
@@ -58,7 +56,7 @@
 
         <section aria-labelledby="controls">
           <h2 id="controls">
-            <span class="mark">C</span> Chorus <span class="sub">what it does</span>
+            <span class="mark">C</span> What it does
           </h2>
           <ul class="features">
             @for (f of p.features; track f.title) {
@@ -72,7 +70,7 @@
 
         <section aria-labelledby="specs">
           <h2 id="specs">
-            <span class="mark">D</span> Instrumentation <span class="sub">the stack</span>
+            <span class="mark">D</span> Stack
           </h2>
           <dl class="specs">
             @for (s of p.stack; track s.group) {
@@ -91,7 +89,7 @@
         @if (p.images.length) {
           <section aria-labelledby="shots">
             <h2 id="shots">
-              <span class="mark">E</span> Live recordings <span class="sub">screenshots</span>
+              <span class="mark">E</span> Screenshots
             </h2>
             <div class="shots">
               @for (img of p.images; track img.src) {
@@ -109,7 +107,7 @@
 
       @if (next(); as n) {
         <a class="next paper" [routerLink]="['/projects', n.slug]" [style.--next]="n.color">
-          <span class="eyebrow">Turn the page</span>
+          <span class="eyebrow">Next project</span>
           <span class="next-name">{{ n.name }} →</span>
           <span class="next-tag">{{ n.tagline }}</span>
         </a>
