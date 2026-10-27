@@ -69,7 +69,7 @@ export default class Songbook {
       path: '/projects',
       title: 'Projects',
       description:
-        'The songbook of Milinko Miletić: Movienee, Movienee Scrapers, FuelScan and GotH, plus demos and everything else from GitHub.',
+        'Projects by Milinko Miletić: Movienee, Movienee Scrapers, FuelScan and GotH, plus demos and everything else from GitHub.',
     });
     afterNextRender(() => this.github.refresh());
   }

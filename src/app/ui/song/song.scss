@@ -70,12 +70,6 @@
   color: color-mix(in srgb, var(--song) 65%, var(--paper-ink));
 }
 
-.credit {
-  font-size: 0.62rem;
-  color: var(--muted);
-  letter-spacing: 0.04em;
-}
-
 .chords {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -118,10 +112,6 @@
 
   .style {
     font-size: 0.85rem;
-  }
-
-  .credit {
-    display: none;
   }
 
   .chords {
