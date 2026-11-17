@@ -51,8 +51,10 @@ export function toCommit(repo: string, c: ApiCommit): Commit {
 
 export async function fetchGithubSnapshot(
   user: string,
+  ignored: readonly string[] = [],
   headers: Record<string, string> = {},
 ): Promise<GithubSnapshot> {
+  const skip = new Set(ignored.map((name) => name.toLowerCase()));
   const get = async <T>(path: string): Promise<T> => {
     const res = await fetch(`${API}${path}`, {
       headers: { Accept: 'application/vnd.github+json', ...headers },
@@ -63,7 +65,7 @@ export async function fetchGithubSnapshot(
 
   const apiRepos = await get<ApiRepo[]>(`/users/${user}/repos?per_page=100&sort=pushed`);
   const repos = apiRepos
-    .filter((r) => !r.fork)
+    .filter((r) => !r.fork && !skip.has(r.name.toLowerCase()))
     .map(toRepo)
     .sort((a, b) => b.pushedAt.localeCompare(a.pushedAt));
 

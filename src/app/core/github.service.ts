@@ -2,6 +2,7 @@ import { Injectable, PLATFORM_ID, computed, inject, signal } from '@angular/core
 import { isPlatformBrowser } from '@angular/common';
 import { GITHUB_SNAPSHOT } from '../content/generated/github';
 import { fetchGithubSnapshot } from '../content/github-api';
+import { IGNORED_REPOS } from '../content/ignored-repos';
 import { GithubSnapshot } from '../content/types';
 import { SITE } from '../site.config';
 
@@ -39,7 +40,7 @@ export class GithubService {
       return;
     }
     try {
-      const fresh = await fetchGithubSnapshot(SITE.githubUser);
+      const fresh = await fetchGithubSnapshot(SITE.githubUser, IGNORED_REPOS);
       writeCache(fresh);
       this.apply(fresh);
     } catch {

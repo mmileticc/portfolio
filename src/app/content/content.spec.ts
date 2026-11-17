@@ -1,5 +1,5 @@
 import { formatDate, timeAgo } from '../core/format';
-import { toCommit } from './github-api';
+import { fetchGithubSnapshot, toCommit } from './github-api';
 import { DEMOS, FEATURED, HIDDEN_REPOS, PROJECTS, findProject } from './projects';
 
 describe('projects', () => {
@@ -72,5 +72,48 @@ describe('format', () => {
 
   it('formats a post date', () => {
     expect(formatDate('2026-10-21')).toBe('October 21, 2026');
+  });
+});
+
+describe('fetchGithubSnapshot', () => {
+  afterEach(() => vi.unstubAllGlobals());
+
+  it('drops ignored repositories from the list and the recent commits', async () => {
+    const repo = (name: string, pushed_at: string) => ({
+      name,
+      description: null,
+      language: null,
+      stargazers_count: 0,
+      html_url: `https://github.com/u/${name}`,
+      homepage: null,
+      pushed_at,
+      fork: false,
+    });
+    const requested: string[] = [];
+    vi.stubGlobal('fetch', async (url: string) => {
+      requested.push(url);
+      const body = url.includes('/users/')
+        ? [
+            repo('Birthday-Invite', '2026-11-17T21:00:00Z'),
+            repo('manacher', '2026-10-22T13:00:00Z'),
+          ]
+        : [
+            {
+              html_url: `${url}/abc`,
+              commit: {
+                message: 'Commit',
+                author: { date: '2026-10-22T13:00:00Z' },
+                committer: null,
+              },
+            },
+          ];
+      return { ok: true, json: async () => body };
+    });
+
+    const snapshot = await fetchGithubSnapshot('u', ['birthday-invite']);
+
+    expect(snapshot.repos.map((r) => r.name)).toEqual(['manacher']);
+    expect(snapshot.commits.map((c) => c.repo)).toEqual(['manacher']);
+    expect(requested.some((u) => u.includes('Birthday-Invite'))).toBe(false);
   });
 });
