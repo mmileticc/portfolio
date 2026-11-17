@@ -13,6 +13,7 @@ import matter from 'gray-matter';
 import { Marked } from 'marked';
 import { createHighlighter } from 'shiki';
 import { fetchGithubSnapshot } from '../src/app/content/github-api.ts';
+import { IGNORED_REPOS } from '../src/app/content/ignored-repos.ts';
 import { PROJECTS } from '../src/app/content/projects.ts';
 import { SITE } from '../src/app/site.config.ts';
 import type { GithubSnapshot, Post } from '../src/app/content/types.ts';
@@ -107,6 +108,7 @@ if (!offline) {
     const token = process.env['GITHUB_TOKEN'];
     snapshot = await fetchGithubSnapshot(
       SITE.githubUser,
+      IGNORED_REPOS,
       token ? { Authorization: `Bearer ${token}` } : {},
     );
     console.log(`✔ ${snapshot.repos.length} repos, ${snapshot.commits.length} recent commits`);

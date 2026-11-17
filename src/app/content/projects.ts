@@ -474,11 +474,8 @@ export function findProject(slug: string | null | undefined): Project | undefine
   return PROJECTS.find((p) => p.slug === slug);
 }
 
-/** Repositories that are not shown in the B-sides: songs and housekeeping repos. */
-export const HIDDEN_REPOS = new Set([
-  ...PROJECTS.flatMap((p) => p.repos),
-  'mmileticc',
-  'mmileticc.github.io',
-  'portfolio',
-  'Local-Eyes-Prototip',
-]);
+/**
+ * Repositories kept out of the "From GitHub" list because they already have a page here.
+ * Repos to drop from the site entirely go in ignored-repos.ts.
+ */
+export const HIDDEN_REPOS = new Set([...PROJECTS.flatMap((p) => p.repos), 'portfolio']);
